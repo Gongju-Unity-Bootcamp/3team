@@ -34,6 +34,10 @@ public class NaverMapAPI : MonoBehaviour
     public Button mainBuilding;
     public Button welfareCenter;
     public Button dormitory;
+    public Button engineeringBuildingA;
+    public Button engineeringBuildingB;
+    public Button tennisCourt;
+    public Button playground;
     private void Start()
     {
         mapWidth = mapRectTransform.sizeDelta.x.ToString();
@@ -144,16 +148,34 @@ public class NaverMapAPI : MonoBehaviour
         float mainBuildinglati = 36.520280f;
         float mainBuildinglong = 127.172651f;
 
-        float welfareCenterlati = 36.520448f;
+        float welfareCenterlati = 36.520418f;
         float welfareCenterlong = 127.173239f;
 
         float dormitorylati = 36.521394f;
         float dormitorylong = 127.172874f;
 
-        // 각 장소의 위치에 버튼을 설정
+        float engineeringBuildingAlati = 36.520748f;
+        float engineeringBuildingAlong = 127.172416f;
+
+        float engineeringBuildingBlati = 36.521127f;
+        float engineeringBuildingBlong = 127.171946f;
+
+        float tennisCourtlati = 36.520211f;
+        float tennisCourtlong = 127.174051f;
+
+        float playgroundlati = 36.519721f;
+        float playgroundlong = 127.172933f;
+
+
+
+    // 각 장소의 위치에 버튼을 설정
         SetLocationMarker(mainBuilding, mainBuildinglati, mainBuildinglong);
         SetLocationMarker(welfareCenter, welfareCenterlati, welfareCenterlong);
         SetLocationMarker(dormitory, dormitorylati, dormitorylong);
+        SetLocationMarker(engineeringBuildingA, engineeringBuildingAlati, engineeringBuildingAlong);
+        SetLocationMarker(engineeringBuildingB, engineeringBuildingBlati, engineeringBuildingBlong);
+        SetLocationMarker(tennisCourt, tennisCourtlati, tennisCourtlong);
+        SetLocationMarker(playground, playgroundlati, playgroundlong);
     }
     private void SetLocationMarker(Button locationButton, float latitude, float longitude)
     {
