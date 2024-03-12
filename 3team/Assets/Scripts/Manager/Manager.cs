@@ -43,24 +43,24 @@ public class Manager : MonoBehaviour
 
         go = new GameObject(nameof(DataManager));
         go.transform.parent = transform;
-        Data = go.GetComponent<DataManager>();
+        Data = go.AddComponent<DataManager>();
 
         go = new GameObject(nameof(Resources));
         go.transform.parent = transform;
-        Resources = go.GetComponent<ResourcesManager>();
+        Resources = go.AddComponent<ResourcesManager>();
 
 
         go = new GameObject(nameof(SoundManager));
         go.transform.parent = transform;
-        Sound = go.GetComponent<SoundManager>();
+        Sound = go.AddComponent<SoundManager>();
 
         go = new GameObject(nameof(UIManager));
         go.transform.parent = transform;
-        UI = go.GetComponent<UIManager>();
+        UI = go.AddComponent<UIManager>();
 
         go = new GameObject(nameof(VidioManager));
         go.transform.parent = transform;
-        Vidio = go.GetComponent<VidioManager>();
+        Vidio = go.AddComponent<VidioManager>();
 
 
         Data.Init();

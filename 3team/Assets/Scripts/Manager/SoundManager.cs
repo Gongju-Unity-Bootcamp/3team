@@ -12,10 +12,10 @@ public class SoundManager : MonoBehaviour
     public AudioSource Effect3 { get; set; }
     public void Init()
     {
-        BGM = GetComponent<AudioSource>();
-        Effect = GetComponent<AudioSource>();  
-        Effect2 = GetComponent<AudioSource>();
-        Effect3 = GetComponent<AudioSource>();
+        BGM = gameObject.AddComponent<AudioSource>();
+        Effect = gameObject.AddComponent<AudioSource>();  
+        Effect2 = gameObject.AddComponent<AudioSource>();
+        Effect3 = gameObject.AddComponent<AudioSource>();
     }
 
     public void BGMPlay(string sound)
@@ -29,6 +29,7 @@ public class SoundManager : MonoBehaviour
     {
         if(!Effect.isPlaying)
         {
+            Debug.Log(sound);
             Effect.clip = Manager.Resources.LoadAudioClip(sound);
             Effect.Play();
             return;
