@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
     public GameObject UI;
 
     public GameObject MainMenu;
-    public GameObject Navi;
+    public GameObject FindView;
     public GameObject Docent;
     public GameObject RoadView;
     public GameObject Exit;
@@ -18,7 +18,7 @@ public class UIManager : MonoBehaviour
     {
         UI = GameObject.Find("UI");
         MainMenu = UI.transform.Find("MainMenu").gameObject;
-        Navi = UI.transform.Find("Navi").gameObject;
+        FindView = UI.transform.Find("FindView").gameObject;
         Docent = UI.transform.Find("Docent").gameObject;
         RoadView = UI.transform.Find("RoadView").gameObject;
     }

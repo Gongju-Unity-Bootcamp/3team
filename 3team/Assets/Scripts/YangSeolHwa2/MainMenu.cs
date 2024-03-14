@@ -7,26 +7,26 @@ using System;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] private Button button1;
-    [SerializeField] private Button button2;
-    [SerializeField] private Button button3;
-    [SerializeField] private Button button4;
+    [SerializeField] private Button FindRoad;
+    [SerializeField] private Button Docent;
+    [SerializeField] private Button RoadView;
+    [SerializeField] private Button Exit;
 
     public void Awake()
     {
-        button1 = transform.Find("NaviButton").GetComponent<Button>();
-        button2 = transform.Find("DocentButton").GetComponent<Button>();
-        button3 = transform.Find("RoadViewButton").GetComponent<Button>();
-        button4 = transform.Find("ExitButton").GetComponent<Button>();
+        FindRoad = transform.Find("FindRoadButton").GetComponent<Button>();
+        Docent = transform.Find("DocentButton").GetComponent<Button>();
+        RoadView = transform.Find("RoadViewButton").GetComponent<Button>();
+        Exit = transform.Find("ExitButton").GetComponent<Button>();
     }
 
     public void Start()
     {
         var buttonClicks = Observable.Merge(
-            button1.OnClickAsObservable().Select(_ => "Navi"),
-            button2.OnClickAsObservable().Select(_ => "Docent"),
-            button3.OnClickAsObservable().Select(_ => "RoadView"),
-            button4.OnClickAsObservable().Select(_ => "Exit")
+            FindRoad.OnClickAsObservable().Select(_ => "FindRoad"),
+            Docent.OnClickAsObservable().Select(_ => "Docent"),
+            RoadView.OnClickAsObservable().Select(_ => "RoadView"),
+            Exit.OnClickAsObservable().Select(_ => "Exit")
         );
 
         buttonClicks.Subscribe(uiName => ChangeUI(uiName));
@@ -38,8 +38,8 @@ public class MainMenu : MonoBehaviour
 
         switch (uiName)
         {
-            case "Navi":
-                Manager.UI.Navi.SetActive(true);
+            case "FindRoad":
+                Manager.UI.FindView.SetActive(true);
                 break;
             case "Docent":
                 Manager.UI.Docent.SetActive(true);
