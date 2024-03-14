@@ -26,6 +26,7 @@ public class MapData
     public string Name { get; set; }
     public float Longitude { get; set; }
     public float Latitude { get; set; }
+    public string Type { get; set; }
     public string Sprite { get; set; }
     public string Sound { get; set; }
     public string Address { get; set; }
