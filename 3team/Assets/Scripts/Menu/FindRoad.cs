@@ -1,92 +1,141 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
 using UnityEngine.EventSystems;
 
-public class FindRoad : MonoBehaviour
+public class FindRoad : UI
 {
-    private GameObject Infos;
-    private GameObject Map;
-    private GameObject ARNavi;
+    public GameObject Map;
+    public GameObject Infos;
+    public GameObject NaviSearch;
+    public GameObject ARNavi;
+    [SerializeField] private GameObject Popup; //직접 어싸인?
 
-    private Button backButton;
-    private Button mapButton;
-    private Button naviButton;
+    private MarkerInfo docentInfo;
+
+    private Button roadInfoButton;
+    private Button naviSearchButton;
+    private Button allowanceButton;
+    private Button notAllowanceButton;
     private Button naviEndButton;
-
-    private Image imageRenderer;
-    private Text nameText;
-    private Text informationText;
-    private Text AddressText;
-
-    private Stack<GameObject> backPage = new Stack<GameObject>();
+    //private Button[] markerButtons;
 
     private void Awake()
     {
-        SetComopnent();
+        SetComponent();
         Init();
 
-        Map.SetActive(false);
         ARNavi.SetActive(false);
     }
-    void SetComopnent()
+    void SetComponent()
     {
-        Infos           = transform.Find("Info").gameObject;
-        Map             = transform.Find("Map").gameObject;
-        ARNavi          = transform.Find("ARNavi").gameObject;
-        backButton      = transform.Find("Back").GetComponent<Button>();
-        imageRenderer   = Infos.transform.Find("Image").gameObject.GetComponent<Image>();
-        nameText        = Infos.transform.Find("Name").gameObject.GetComponent<Text>();
-        informationText = Infos.transform.Find("Information").gameObject.GetComponent<Text>();
-        AddressText     = Infos.transform.Find("Address").gameObject.GetComponent<Text>();
-        mapButton       = Infos.transform.Find("MapButton").gameObject.GetComponent<Button>();
-        naviButton      = Map.transform.Find("NaviButton").gameObject.GetComponent<Button>();
-        naviEndButton   = ARNavi.transform.Find("NaviEndButton").gameObject.GetComponent<Button>();
+        Map              = transform.Find("Map").gameObject;
+        //Markers          = Map.transform.Find("Markers").gameObject;
+        Infos            = transform.Find("Info").gameObject;
+        NaviSearch       = transform.Find("NaviSearch").gameObject;
+        ARNavi           = transform.Find("ARNavi").gameObject;
+
+        docentInfo = Infos.GetComponent<MarkerInfo>();
+
+        //Marker -> Info
+        //이건 Marker오브젝트 따로 관리
+
+        //Info -> RoadInfo
+        roadInfoButton   = Infos.transform.Find("RoadInfoButton").gameObject.GetComponent<Button>();
+
+        //navi -> popup
+        naviSearchButton = NaviSearch.transform.Find("NaviSearchButton").gameObject.GetComponent<Button>();
+
+        //popup -> ARNavi
+        allowanceButton = Popup.transform.Find("AllowanceButton").gameObject.GetComponent<Button>();
+        notAllowanceButton = Popup.transform.Find("NotAllowanceButton").gameObject.GetComponent<Button>();
+
+        //RoadView -> Map
+        naviEndButton    = ARNavi.transform.Find("NaviEndButton").gameObject.GetComponent<Button>();
+
+
     }
 
     void Init()
     {
-        Observable.Merge(backButton.OnClickAsObservable(),
-                         naviButton.OnClickAsObservable(),
-                         mapButton.OnClickAsObservable(),
+        Observable.Merge(naviSearchButton.OnClickAsObservable(),
+                         roadInfoButton.OnClickAsObservable(),
                          naviEndButton.OnClickAsObservable()).Subscribe(go => ClickCheck());
     }
 
-    private void TrueObject(GameObject go)
+    protected override void ClickCheck()
     {
-        backPage.Push(go);
-        go.SetActive(true);
-    }
-
-    private void FalseObject()
-    {
-
-        if (backPage.Count <= 0) { gameObject.SetActive(false); }
-        GameObject go = backPage.Pop();
-        go.SetActive(false);
-    }
-
-
-    private void ClickCheck()
-    {
-
         GameObject go = EventSystem.current.currentSelectedGameObject;
-        switch (go)
+        
+        switch (go.name)
         {
-            case var button when button == mapButton.gameObject:
-                TrueObject(Map);
+            case "RoadInfoButton": //Info안에 있는 버튼
+                GoRoadInfo();
                 break;
-            case var button when button == naviButton.gameObject:
-                TrueObject(ARNavi);
+            case "NaviSearchButton": //NaviSearch안에 있는 버튼
+                GoNaviSearch();
                 break;
-            case var button when button == naviEndButton.gameObject || backButton.gameObject:
-                FalseObject();
+            case "AllowanceButton": //위치 동의
+                WhatAllowance(go);
+                break;
+            case "NotAllowanceButton": //위치 동의 거부
+                WhatAllowance(go);
+                break;
+            case "NaviEndButton": //AR안내 종료
+                EndARNavi();
                 break;
             default:
                 break;
         }
+    }
+
+    void GoRoadInfo()
+    {
+        //NaviSearch오브젝트 띄울때 표기될 정보 메소드
+        //현재 인포에 보이는 mapData가져옴
+        //ex: NaviTureFalse(docentInfo());
+        base.ForwardPage(NaviSearch);
+    }
+
+    void GoNaviSearch(GameObject go = null)
+    {
+        Popup.SetActive(true);
+        naviSearchButton.gameObject.SetActive(false);
+    }
+
+    void WhatAllowance(GameObject bt)
+    {
+        if (bt == allowanceButton) 
+        { 
+            ARNavi.SetActive(true);
+            NaviSearch.SetActive(false);
+        }
+        else 
+        { 
+            Popup.SetActive(false);
+            naviSearchButton.gameObject.SetActive(true);
+        }
+    }
+
+    void EndARNavi(GameObject go = null)
+    {
+        if (go == Map || BStack.Count == THIS_MAIN_MANU) 
+        { 
+            return; 
+        }
+        else 
+        { 
+            EndARNavi(BackPage()); 
+        }
+    }
+
+    bool IsButtonType(GameObject go)
+    {
+        bool isResult = false;
+
+
+        return isResult;
     }
 
 }

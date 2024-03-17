@@ -58,7 +58,7 @@ public class Manager : MonoBehaviour
         Vidio = go.AddComponent<VidioManager>();
 
 
-        Data.Init();
+        //Data.Init();
         Resources.Init();
         Sound.Init();
         UI.Init();
