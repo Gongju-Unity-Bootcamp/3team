@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public GameObject UI;
+    public GameObject UIController;
 
     public GameObject MainMenu;
     public GameObject FindView;
@@ -16,11 +16,13 @@ public class UIManager : MonoBehaviour
 
     public void Init()
     {
-        UI = GameObject.Find("UI");
-        MainMenu = UI.transform.Find("MainMenu").gameObject;
-        FindView = UI.transform.Find("FindView").gameObject;
-        Docent = UI.transform.Find("Docent").gameObject;
-        RoadView = UI.transform.Find("RoadView").gameObject;
+        UIController = GameObject.Find("UIController");
+        MainMenu = UIController.transform.Find("MainMenu").gameObject;
+        FindView = UIController.transform.Find("FindView").gameObject;
+        Docent = UIController.transform.Find("Docent").gameObject;
+        RoadView = UIController.transform.Find("RoadView").gameObject;
+        MainMenu go = MainMenu.AddComponent<MainMenu>();
+        go.Init();
     }
 
     

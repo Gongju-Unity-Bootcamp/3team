@@ -13,22 +13,16 @@ public class DataManager : MonoBehaviour
 
     public Dictionary<MapID, MapData> Map = new Dictionary<MapID, MapData>();
     public Dictionary<SoundID, SoundData> Sound = new Dictionary<SoundID, SoundData>();
-    private void Awake()
-    {
-        Init();
-    }
 
     public void Init()
     {
 #if UNITY_EDITOR
-        Map = ParseToDict<MapID, MapData>("Assets/Resources/Data/Item.csv", data => data.Id);
+        Map = ParseToDict<MapID, MapData>("Assets/Resources/Data/MapData.csv", data => data.Id);
         Sound = ParseToDict<SoundID, SoundData>("Assets/Resources/Data/Sound.csv", data => data.Id);
 #else
         TextAsset mapCSV = Resources.Load<TextAsset>("Data/Map");
-        Item = ParseToDict<MapID, MapData>(MapCSV.text, data => data.Id);
+        Map = ParseToDict<MapID, MapData>(MapCSV.text, data => data.Id);
 
-        TextAsset soundCSV = Resources.Load<TextAsset>("Data/Sound");
-        Sound = ParseToDict<SoundID, SoundData>(soundCSV.text, data => data.Id);
 #endif
 
     }
@@ -46,4 +40,5 @@ public class DataManager : MonoBehaviour
             return csv.GetRecords<TItem>().ToDictionary(KeySelector);
         }
     }
+
 }
