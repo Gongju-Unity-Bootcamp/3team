@@ -3,11 +3,13 @@ using UnityEngine.UI;
 
 public class MarkerInfo : MonoBehaviour
 {
+    public MapID mapID;
     private MapData mapData;
     private Image image;
     private Text address;
     private Text name;
     private Text infomation;
+
 
     private void Awake()
     {
@@ -21,9 +23,10 @@ public class MarkerInfo : MonoBehaviour
         infomation = transform.Find("Infomation").GetComponent<Text>();
     }
 
-    public void Init(MapData data)
+    public void Init(MapID id)
     {
-        mapData = data;
+        mapID = id;
+        mapData = Manager.Data.Map[mapID];
         SetData();
     }
 
@@ -35,8 +38,8 @@ public class MarkerInfo : MonoBehaviour
         infomation.text = mapData.Information;
     }
 
-    public MapData GetMapID()
+    public MapID GetMapID()
     {
-        return mapData;
+        return mapID;
     }
 }

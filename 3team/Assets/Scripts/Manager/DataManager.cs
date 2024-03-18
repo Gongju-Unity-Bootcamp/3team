@@ -18,10 +18,10 @@ public class DataManager : MonoBehaviour
     {
 #if UNITY_EDITOR
         Map = ParseToDict<MapID, MapData>("Assets/Resources/Data/MapData.csv", data => data.Id);
-        Sound = ParseToDict<SoundID, SoundData>("Assets/Resources/Data/Sound.csv", data => data.Id);
+        //Sound = ParseToDict<SoundID, SoundData>("Assets/Resources/Data/Sound.csv", data => data.Id);
 #else
         TextAsset mapCSV = Resources.Load<TextAsset>("Data/Map");
-        Map = ParseToDict<MapID, MapData>(MapCSV.text, data => data.Id);
+        //Map = ParseToDict<MapID, MapData>(MapCSV.text, data => data.Id);
 
 #endif
 

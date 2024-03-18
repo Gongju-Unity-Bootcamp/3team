@@ -5,26 +5,30 @@ using UnityEngine.EventSystems;
 
 public class Marker : MonoBehaviour
 {
-    private MapData mapData; 
-    private MapID Id { get; set; }
-    private string Name { get; set; }
-    private string Sound { get; set; }
-    private MarkerType Type { get; set; }
+    private MapData mapData;
+    private MapID Id;
+    private string Name;
+    private float Latitude;
+    private float Longitude;
+    private string Sound;
+    private MarkerType Type;
     private Image image;
     private Button button;
 
 
-    public void Init(MapData mapData, Vector3 vector)
+    public void Init(MapID id)
     {
         SetComponent();
 
-        Id = mapData.Id;
+        Id = id;
         mapData = Manager.Data.Map[Id];
         Name = mapData.Name;
+        Latitude = mapData.Latitude;
+        Longitude = mapData.Longitude;
         Type = mapData.Type;
         Sound = mapData.Sound;
         image.sprite = Manager.Resources.LoadSprite(Type.ToString());
-        transform.position = vector;
+        transform.position = new Vector3(Latitude, Longitude, 0);
     }
 
     void SetComponent()
@@ -39,6 +43,6 @@ public class Marker : MonoBehaviour
     {
         GameObject go = Manager.UI.FindView.transform.Find("Info").gameObject;
         MarkerInfo info = go.GetComponent<MarkerInfo>();
-        info.Init(mapData);
+        info.Init(Id);
     }
 }

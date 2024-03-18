@@ -14,6 +14,8 @@ public class UIManager : MonoBehaviour
     public GameObject RoadView;
     public GameObject Exit;
 
+    public Vector2 userPosition;
+
     public void Init()
     {
         UIController = GameObject.Find("UIController");
