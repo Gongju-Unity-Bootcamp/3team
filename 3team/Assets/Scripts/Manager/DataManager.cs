@@ -21,7 +21,7 @@ public class DataManager : MonoBehaviour
         //Sound = ParseToDict<SoundID, SoundData>("Assets/Resources/Data/Sound.csv", data => data.Id);
 #else
         TextAsset mapCSV = Resources.Load<TextAsset>("Data/Map");
-        //Map = ParseToDict<MapID, MapData>(MapCSV.text, data => data.Id);
+        //Map = ParseToDict<MapID, MapData>(mapCSV.text, data => data.Id);
 
 #endif
 

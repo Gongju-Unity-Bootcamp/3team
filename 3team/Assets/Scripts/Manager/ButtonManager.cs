@@ -8,7 +8,6 @@ public class ButtonManager : MonoBehaviour
 
     public void ClickFindRoadButton()
     {
-        Debug.Log("버튼클릭");
         //팝업변경
         Manager.Sound.EffectPlay("Clickbutton");
     }

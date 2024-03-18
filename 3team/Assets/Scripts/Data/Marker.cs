@@ -37,15 +37,14 @@ public class Marker : UI
     {
         image = GetComponent<Image>();
         button = GetComponent<Button>();
-
-        button.OnClickAsObservable().Subscribe(_ => MarkerClick());
+        button.OnClickAsObservable().Subscribe(_ => ClickCheck());
     }
 
-    void MarkerClick()
+    protected override void ClickCheck()
     {
         GameObject go = Manager.UI.FindView.transform.Find("Info").gameObject;
-        base.ForwardPage(go);
         MarkerInfo info = go.GetComponent<MarkerInfo>();
+        base.ForwardPage(go);
         info.Init(Id);
     }
 }
