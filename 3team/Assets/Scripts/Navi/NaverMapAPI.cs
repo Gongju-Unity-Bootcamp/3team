@@ -34,17 +34,6 @@ public class NaverMapAPI : MonoBehaviour
     private string minMaplong = "127.171687";
     private string maxMaplong = "127.174377";
 
-    public Button mainBuilding;
-    public Button welfareCenter;
-    public Button dormitory;
-    public Button engineeringBuildingA;
-    public Button engineeringBuildingB;
-    public Button tennisCourt;
-    public Button playground;
-
-
-
-    private Vector2 userPosition;
     private Vector2 mainBuildingPosition;
     private Vector2 welfareCenterPosition;
     private Vector2 dormitoryPosition;
@@ -53,22 +42,15 @@ public class NaverMapAPI : MonoBehaviour
     private Vector2 tennisCourtPosition;
     private Vector2 playgroundPosition;
 
-    private MapProcessor _mapProcessor;
+
     private void Start()
     {
-        _mapProcessor = GetComponent<MapProcessor>();
+
         mapWidth = mapRectTransform.sizeDelta.x.ToString();
         mapHeight = mapRectTransform.sizeDelta.y.ToString();
 
         mapRawImage = GetComponent<RawImage>();
 
-        mainBuilding.onClick.AddListener(() => OnPlaceButtonClick("mainBuilding"));
-        welfareCenter.onClick.AddListener(() => OnPlaceButtonClick("welfareCenter"));
-        dormitory.onClick.AddListener(() => OnPlaceButtonClick("dormitory"));
-        engineeringBuildingA.onClick.AddListener(() => OnPlaceButtonClick("engineeringBuildingA"));
-        engineeringBuildingB.onClick.AddListener(() => OnPlaceButtonClick("engineeringBuildingB"));
-        tennisCourt.onClick.AddListener(() => OnPlaceButtonClick("tennisCourt"));
-        playground.onClick.AddListener(() => OnPlaceButtonClick("playground"));
 
         StartCoroutine(RequestLocationPermission());
         StartCoroutine(MapLoader());
@@ -191,16 +173,6 @@ public class NaverMapAPI : MonoBehaviour
         float playgroundlati = 36.519721f;
         float playgroundlong = 127.172933f;
 
-
-
-        // 각 장소의 위치에 버튼을 설정
-        mainBuildingPosition = SetLocationMarker(mainBuilding, mainBuildinglati, mainBuildinglong);
-        welfareCenterPosition = SetLocationMarker(welfareCenter, welfareCenterlati, welfareCenterlong);
-        dormitoryPosition = SetLocationMarker(dormitory, dormitorylati, dormitorylong);
-        engineeringBuildingAPosition = SetLocationMarker(engineeringBuildingA, engineeringBuildingAlati, engineeringBuildingAlong);
-        engineeringBuildingBPosition = SetLocationMarker(engineeringBuildingB, engineeringBuildingBlati, engineeringBuildingBlong);
-        tennisCourtPosition = SetLocationMarker(tennisCourt, tennisCourtlati, tennisCourtlong);
-        playgroundPosition = SetLocationMarker(playground, playgroundlati, playgroundlong);
     }
     private Vector2 SetLocationMarker(Button locationButton, float latitude, float longitude)
     {
@@ -232,10 +204,10 @@ public class NaverMapAPI : MonoBehaviour
 
 
             Vector2 normalizedUserPos = Clamping(userLat, userLong);
-            userPosition = normalizedUserPos;
+            Manager.UI.userPosition = normalizedUserPos;
             // userLocationMarker 위치 설정
-            userLocationMarker.rectTransform.anchorMin = userPosition;
-            userLocationMarker.rectTransform.anchorMax = userPosition;
+            userLocationMarker.rectTransform.anchorMin = Manager.UI.userPosition;
+            userLocationMarker.rectTransform.anchorMax = Manager.UI.userPosition;
 
         }
     }
@@ -250,52 +222,4 @@ public class NaverMapAPI : MonoBehaviour
 
         return Pos;
     }
-
-    public void OnPlaceButtonClick(string place)
-    {
-        float doorLati = 0f;
-        float doorLong = 0f;
-
-        switch (place)
-        {
-            case "mainBuilding":
-                doorLati = 36.520056f;
-                doorLong = 127.172804f;
-                break;
-            case "welfareCenter":
-                doorLati = 36.520518f;
-                doorLong = 127.173606f;
-                break;
-            case "dormitory":
-                doorLati = 36.521198f;
-                doorLong = 127.173368f;
-                break;
-            case "engineeringBuildingA":
-                doorLati = 36.520557f;
-                doorLong = 127.172414f;
-                break;
-            case "engineeringBuildingB":
-                doorLati = 36.520902f;
-                doorLong = 127.171743f;
-                break;
-            case "tennisCourt":
-                doorLati = 36.520162f;
-                doorLong = 127.173739f;
-                break;
-            case "playground":
-                doorLati = 36.519942f;
-                doorLong = 127.173809f;
-                break;
-
-
-            default:
-                return;
-        }
-        //doorLati = 36.521198f;
-        //doorLong = 127.173368f;
-
-        // 사용자 위치와 선택한 장소의 위치를 사용하여 경로 초기화
-        _mapProcessor.Init(userPosition, SetLocatioDoor(doorLati, doorLong));
-    }
-
 }

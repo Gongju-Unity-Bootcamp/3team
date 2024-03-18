@@ -21,10 +21,13 @@ public class FindRoad : UI
     private Button naviEndButton;
     //private Button[] markerButtons;
 
+    private MapProcessor _mapProcessor;
+
     private void Awake()
     {
         SetComponent();
         Init();
+        _mapProcessor = GetComponent<MapProcessor>();
 
         ARNavi.SetActive(false);
     }
@@ -54,14 +57,23 @@ public class FindRoad : UI
         //RoadView -> Map
         naviEndButton    = ARNavi.transform.Find("NaviEndButton").gameObject.GetComponent<Button>();
 
-
+        Observable.Merge(naviSearchButton.OnClickAsObservable(),
+                 roadInfoButton.OnClickAsObservable(),
+                 naviEndButton.OnClickAsObservable()).Subscribe(go => ClickCheck());
     }
+
 
     void Init()
     {
-        Observable.Merge(naviSearchButton.OnClickAsObservable(),
-                         roadInfoButton.OnClickAsObservable(),
-                         naviEndButton.OnClickAsObservable()).Subscribe(go => ClickCheck());
+        int markerCount = Manager.Data.Map.Count;
+        for (int i = 0; i < markerCount; ++i)
+        {
+            GameObject go = Manager.Resources.LoadPrefab("Marker");
+            Marker mk = go.AddComponent<Marker>();
+            mk.transform.parent = Map.transform;
+            mk.Init((MapID)i);
+        }
+
     }
 
     protected override void ClickCheck()
@@ -94,7 +106,7 @@ public class FindRoad : UI
     {
         //NaviSearch오브젝트 띄울때 표기될 정보 메소드
         //현재 인포에 보이는 mapData가져옴
-        //ex: NaviTureFalse(docentInfo());
+        _mapProcessor.Init(Manager.UI.userPosition, GetDestination());
         base.ForwardPage(NaviSearch);
     }
 
@@ -130,12 +142,13 @@ public class FindRoad : UI
         }
     }
 
-    bool IsButtonType(GameObject go)
+    Vector2 GetDestination()
     {
-        bool isResult = false;
-
-
-        return isResult;
+        MarkerInfo go = Infos.gameObject.GetComponent<MarkerInfo>();
+        float Lati = Manager.Data.Map[go.mapID].DoorLati;
+        float Long = Manager.Data.Map[go.mapID].DoorLong;
+        Vector2 locatioDoor = new Vector2(Lati, Long);
+        return locatioDoor;
     }
 
 }
