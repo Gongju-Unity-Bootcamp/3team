@@ -34,6 +34,17 @@ public class NaverMapAPI : MonoBehaviour
     private string minMaplong = "127.171687";
     private string maxMaplong = "127.174377";
 
+    //public Button mainBuilding;
+    //public Button welfareCenter;
+    //public Button dormitory;
+    //public Button engineeringBuildingA;
+    //public Button engineeringBuildingB;
+    //public Button tennisCourt;
+    //public Button playground;
+
+
+
+    //private Vector2 userPosition;
     private Vector2 mainBuildingPosition;
     private Vector2 welfareCenterPosition;
     private Vector2 dormitoryPosition;
@@ -42,7 +53,7 @@ public class NaverMapAPI : MonoBehaviour
     private Vector2 tennisCourtPosition;
     private Vector2 playgroundPosition;
 
-
+    //private MapProcessor _mapProcessor;
     private void Start()
     {
 
@@ -55,7 +66,6 @@ public class NaverMapAPI : MonoBehaviour
         StartCoroutine(RequestLocationPermission());
         StartCoroutine(MapLoader());
         StartCoroutine(UpdateUserLocation());
-        SetPlaceLocationMarker();
     }
     
     //사용자 위치 정보 권한 획득
@@ -150,31 +160,7 @@ public class NaverMapAPI : MonoBehaviour
         }
     }
     
-    private void SetPlaceLocationMarker()
-    {
-        float mainBuildinglati = 36.520280f;
-        float mainBuildinglong = 127.172651f;
-
-        float welfareCenterlati = 36.520418f;
-        float welfareCenterlong = 127.173239f;
-
-        float dormitorylati = 36.521394f;
-        float dormitorylong = 127.172874f;
-
-        float engineeringBuildingAlati = 36.520748f;
-        float engineeringBuildingAlong = 127.172416f;
-
-        float engineeringBuildingBlati = 36.521127f;
-        float engineeringBuildingBlong = 127.171946f;
-
-        float tennisCourtlati = 36.520211f;
-        float tennisCourtlong = 127.174051f;
-
-        float playgroundlati = 36.519721f;
-        float playgroundlong = 127.172933f;
-
-    }
-    private Vector2 SetLocationMarker(Button locationButton, float latitude, float longitude)
+    public Vector2 SetLocationMarker(GameObject locationButton, float latitude, float longitude)
     {
         
         // 위치를 float로 변환

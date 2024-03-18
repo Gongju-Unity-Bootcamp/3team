@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
         FindView = UIController.transform.Find("FindView").gameObject;
         Docent = UIController.transform.Find("Docent").gameObject;
         RoadView = UIController.transform.Find("RoadView").gameObject;
-        MainMenu go = MainMenu.AddComponent<MainMenu>();
+        MainMenu go = MainMenu.GetComponent<MainMenu>();
         go.Init();
     }
 

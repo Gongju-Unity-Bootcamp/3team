@@ -20,25 +20,13 @@ public enum MapID
     Okgol = 9500
 }
 
-public enum MarkerType
-{
-    None,
-    Park = 1,
-    Guide = 2,
-    Hospital = 3,
-    Parking = 4,
-    Wubway = 5,
-    Camera = 6,
-    Restroom = 7
-}
-
 public class MapData
 {
     public MapID Id {  get; set; }
     public string Name { get; set; }
     public float Longitude { get; set; }
     public float Latitude { get; set; }
-    public MarkerType Type { get; set; }
+    public string Type { get; set; }
     public string Sprite { get; set; }
     public string Sound { get; set; }
     public string Information { get; set; }
