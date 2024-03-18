@@ -20,7 +20,7 @@ public class MarkerInfo : MonoBehaviour
         image      = transform.Find("Image").GetComponent<Image>();
         address    = transform.Find("Address").GetComponent<Text>();
         name       = transform.Find("Name").GetComponent<Text>();
-        infomation = transform.Find("Infomation").GetComponent<Text>();
+        infomation = transform.Find("Information").GetComponent<Text>();
     }
 
     public void Init(MapID id)
