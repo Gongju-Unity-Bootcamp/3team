@@ -29,7 +29,6 @@ public class SoundManager : MonoBehaviour
     {
         if(!Effect.isPlaying)
         {
-            Debug.Log(sound);
             Effect.clip = Manager.Resources.LoadAudioClip(sound);
             Effect.Play();
             return;

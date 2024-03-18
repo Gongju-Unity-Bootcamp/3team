@@ -10,14 +10,11 @@ public class FindRoad : UI
     public GameObject Infos;
     public GameObject NaviSearch;
     public GameObject ARNavi;
-    [SerializeField] private GameObject Popup; //직접 어싸인?
 
     private MarkerInfo docentInfo;
 
     private Button roadInfoButton;
     private Button naviSearchButton;
-    private Button allowanceButton;
-    private Button notAllowanceButton;
     private Button naviEndButton;
     //private Button[] markerButtons;
 
@@ -50,9 +47,6 @@ public class FindRoad : UI
         //navi -> popup
         naviSearchButton = NaviSearch.transform.Find("NaviSearchButton").gameObject.GetComponent<Button>();
 
-        //popup -> ARNavi
-        allowanceButton = Popup.transform.Find("AllowanceButton").gameObject.GetComponent<Button>();
-        notAllowanceButton = Popup.transform.Find("NotAllowanceButton").gameObject.GetComponent<Button>();
 
         //RoadView -> Map
         naviEndButton    = ARNavi.transform.Find("NaviEndButton").gameObject.GetComponent<Button>();
@@ -71,6 +65,7 @@ public class FindRoad : UI
             GameObject go = Manager.Resources.Instantiate("Marker", Map.transform);
             Marker mk = go.GetComponent<Marker>();
             mk.Init((MapID)i+1);
+            Debug.Log((MapID)i + 1);
 ;
         }
 
@@ -87,12 +82,6 @@ public class FindRoad : UI
                 break;
             case "NaviSearchButton": //NaviSearch안에 있는 버튼
                 GoNaviSearch();
-                break;
-            case "AllowanceButton": //위치 동의
-                WhatAllowance(go);
-                break;
-            case "NotAllowanceButton": //위치 동의 거부
-                WhatAllowance(go);
                 break;
             case "NaviEndButton": //AR안내 종료
                 EndARNavi();
@@ -112,27 +101,13 @@ public class FindRoad : UI
 
     void GoNaviSearch(GameObject go = null)
     {
-        Popup.SetActive(true);
-        naviSearchButton.gameObject.SetActive(false);
+        base.ForwardPage(ARNavi);
     }
 
-    void WhatAllowance(GameObject bt)
-    {
-        if (bt == allowanceButton) 
-        { 
-            ARNavi.SetActive(true);
-            NaviSearch.SetActive(false);
-        }
-        else 
-        { 
-            Popup.SetActive(false);
-            naviSearchButton.gameObject.SetActive(true);
-        }
-    }
 
     void EndARNavi(GameObject go = null)
     {
-        if (go == Map || BStack.Count == THIS_MAIN_MANU) 
+        if (go == Map) 
         { 
             return; 
         }

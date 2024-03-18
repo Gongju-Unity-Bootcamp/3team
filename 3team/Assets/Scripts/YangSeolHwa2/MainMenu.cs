@@ -11,7 +11,7 @@ public class MainMenu : UI
     [SerializeField] private Button RoadView;
     [SerializeField] private Button Exit;
 
-    public void Init()
+    public void Start()
     {
         FindRoad = transform.Find("FindRoadButton").GetComponent<Button>();
         Docent = transform.Find("RoadViewButton").GetComponent<Button>();
@@ -22,7 +22,7 @@ public class MainMenu : UI
 
     private void SetButton()
     {
-        base.Init(Manager.UI.UIController.transform.Find("BackButton").GetComponent<Button>());
+        //base.Init();
 
         var buttonClicks = Observable.Merge(
             FindRoad.OnClickAsObservable().Select(_ => FindRoad),
@@ -32,16 +32,15 @@ public class MainMenu : UI
         );
 
         buttonClicks.Subscribe(uiName => ClickCheck(uiName));
-        backButton.OnClickAsObservable().Subscribe(_ => GoBack());
-        base.BStack.Push(gameObject);
+        Manager.UI.backButton.OnClickAsObservable().Subscribe(_ => GoBack());
+        //base.BStack.Push(gameObject);
     }
 
     void GoBack()
     {
-        GameObject pop = base.BackPage();
-        GameObject peek = base.BStack.Peek();
-        peek.SetActive(true);
-        pop.SetActive(false);
+        GameObject go = base.BackPage();
+        go.SetActive(false);
+
     }
     protected override void ClickCheck(Button bt)
     {
@@ -59,7 +58,6 @@ public class MainMenu : UI
             _ => null
         };
 
-        Debug.Log(go.name);
         base.ForwardPage(go);
     }
 

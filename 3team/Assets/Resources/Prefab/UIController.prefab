@@ -2036,7 +2036,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c7b57d93f49e1f045929d8f31ff8cc6a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2757b675ff9bb624aab2b3970be49292, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6342,6 +6342,7 @@ GameObject:
   - component: {fileID: 6477653295026259452}
   - component: {fileID: 1786498581019119712}
   - component: {fileID: 5431422852473176291}
+  - component: {fileID: 6191644151830429116}
   m_Layer: 5
   m_Name: Map
   m_TagString: Untagged
@@ -6426,6 +6427,19 @@ MonoBehaviour:
   userLocationMarker: {fileID: 612192647529906710}
   mapRectTransform: {fileID: 353952951468481782}
 --- !u!114 &5431422852473176291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6039764426394178754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9899feaf0c834c64a844c1848ba61f77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkableCoords: []
+--- !u!114 &6191644151830429116
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7942,7 +7956,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1993143463806592809
 Transform:
   m_ObjectHideFlags: 0
@@ -8618,7 +8632,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3770933341370419003
 RectTransform:
   m_ObjectHideFlags: 0

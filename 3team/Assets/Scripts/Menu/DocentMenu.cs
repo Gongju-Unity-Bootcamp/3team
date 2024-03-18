@@ -38,7 +38,6 @@ public class DocentMenu : UI
 
     protected override void ClickCheck()
     {
-        Debug.Log("µµ½¼Æ®");
         GameObject go = EventSystem.current.currentSelectedGameObject;
 
         switch (go.name)
