@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UniRx;
 using UnityEngine.EventSystems;
 
-public class Marker : MonoBehaviour
+public class Marker : UI
 {
     [SerializeField] private MapData mapData;
     [SerializeField] private MapID Id;
@@ -44,6 +44,7 @@ public class Marker : MonoBehaviour
     void MarkerClick()
     {
         GameObject go = Manager.UI.FindView.transform.Find("Info").gameObject;
+        base.ForwardPage(go);
         MarkerInfo info = go.GetComponent<MarkerInfo>();
         info.Init(Id);
     }
