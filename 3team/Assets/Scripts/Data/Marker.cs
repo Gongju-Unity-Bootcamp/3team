@@ -5,21 +5,20 @@ using UnityEngine.EventSystems;
 
 public class Marker : MonoBehaviour
 {
-    private MapData mapData;
-    private MapID Id;
-    private string Name;
-    private float Latitude;
-    private float Longitude;
-    private string Sound;
-    private MarkerType Type;
-    private Image image;
-    private Button button;
+    [SerializeField] private MapData mapData;
+    [SerializeField] private MapID Id;
+    [SerializeField] private string Name;
+    [SerializeField] private float Latitude;
+    [SerializeField] private float Longitude;
+    [SerializeField] private string Sound;
+    [SerializeField] private string Type;
+    [SerializeField] private Image image;
+    [SerializeField] private Button button;
 
 
     public void Init(MapID id)
     {
         SetComponent();
-
         Id = id;
         mapData = Manager.Data.Map[Id];
         Name = mapData.Name;
@@ -27,8 +26,11 @@ public class Marker : MonoBehaviour
         Longitude = mapData.Longitude;
         Type = mapData.Type;
         Sound = mapData.Sound;
-        image.sprite = Manager.Resources.LoadSprite(Type.ToString());
-        transform.position = new Vector3(Latitude, Longitude, 0);
+        image.sprite = Manager.Resources.LoadSprite(Type);
+
+        NaverMapAPI trans = Manager.UI.FindView.transform.Find("Map").GetComponent<NaverMapAPI>();
+        trans.SetLocationMarker(gameObject, Latitude, Longitude);
+
     }
 
     void SetComponent()

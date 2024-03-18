@@ -21,13 +21,13 @@ public class FindRoad : UI
     private Button naviEndButton;
     //private Button[] markerButtons;
 
-    private MapProcessor _mapProcessor;
+    private MapProcessor1 _mapProcessor;
 
     private void Awake()
     {
         SetComponent();
+        _mapProcessor = GetComponent<MapProcessor1>();
         Init();
-        _mapProcessor = GetComponent<MapProcessor>();
 
         ARNavi.SetActive(false);
     }
@@ -68,10 +68,10 @@ public class FindRoad : UI
         int markerCount = Manager.Data.Map.Count;
         for (int i = 0; i < markerCount; ++i)
         {
-            GameObject go = Manager.Resources.LoadPrefab("Marker");
-            Marker mk = go.AddComponent<Marker>();
-            mk.transform.parent = Map.transform;
-            mk.Init((MapID)i);
+            GameObject go = Manager.Resources.Instantiate("Marker", Map.transform);
+            Marker mk = go.GetComponent<Marker>();
+            mk.Init((MapID)i+1);
+;
         }
 
     }

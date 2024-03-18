@@ -40,7 +40,7 @@ public class Manager : MonoBehaviour
         go.transform.parent = transform;
         Data = go.AddComponent<DataManager>();
 
-        go = new GameObject(nameof(Resources));
+        go = new GameObject(nameof(ResourcesManager));
         go.transform.parent = transform;
         Resources = go.AddComponent<ResourcesManager>();
 
@@ -58,7 +58,7 @@ public class Manager : MonoBehaviour
         Vidio = go.AddComponent<VidioManager>();
 
 
-        //Data.Init();
+        Data.Init();
         Resources.Init();
         Sound.Init();
         UI.Init();
