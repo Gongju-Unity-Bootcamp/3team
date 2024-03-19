@@ -55,7 +55,6 @@ public class NaverMapAPI : MonoBehaviour
 
     private void Start()
     {
-
         mapWidth = mapRectTransform.sizeDelta.x.ToString();
         mapHeight = mapRectTransform.sizeDelta.y.ToString();
 
@@ -132,7 +131,7 @@ public class NaverMapAPI : MonoBehaviour
 
             SetUserLocationMarker();
             Input.location.Stop();
-            yield return new WaitForSeconds(0.5f);  // 0.5초마다 사용자 위치 업데이트
+            yield return new WaitForSeconds(1.5f);  // 0.5초마다 사용자 위치 업데이트
         }
     }
 
