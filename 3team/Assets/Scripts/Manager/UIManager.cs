@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
     public GameObject Exit;
     public Button backButton;
     public Vector2 userPosition;
+    public Vector2 buttonPosition;
     protected const int THIS_MAIN_MANU = 2;
     public Stack<GameObject> BStack = new Stack<GameObject>();
 
