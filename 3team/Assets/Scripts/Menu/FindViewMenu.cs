@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using UniRx;
 using UnityEngine.EventSystems;
 
-public class FindRoad : UI
+public class FindViewMenu : UI
 {
     public GameObject Map;
     public GameObject Infos;
@@ -23,7 +23,7 @@ public class FindRoad : UI
     private void Awake()
     {
         SetComponent();
-        _mapProcessor = GetComponent<MapProcessor1>();
+        
         Init();
 
         ARNavi.SetActive(false);
@@ -37,7 +37,7 @@ public class FindRoad : UI
         ARNavi           = transform.Find("ARNavi").gameObject;
 
         docentInfo = Infos.GetComponent<MarkerInfo>();
-
+        _mapProcessor = transform.Find("Map").GetComponent<MapProcessor1>();
         //Marker -> Info
         //이건 Marker오브젝트 따로 관리
 
@@ -95,6 +95,7 @@ public class FindRoad : UI
     {
         //NaviSearch오브젝트 띄울때 표기될 정보 메소드
         //현재 인포에 보이는 mapData가져옴
+        Debug.Log(Manager.UI.userPosition);
         _mapProcessor.Init(Manager.UI.userPosition, GetDestination());
         base.ForwardPage(NaviSearch);
     }

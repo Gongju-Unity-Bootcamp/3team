@@ -1435,7 +1435,7 @@ GameObject:
   - component: {fileID: 1997910304402284427}
   - component: {fileID: 6809280904052966820}
   m_Layer: 5
-  m_Name: Image
+  m_Name: AddressImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1448,16 +1448,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 994905811583541960}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.90909094, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6967209539336408064}
+  m_Father: {fileID: 3770933341370419003}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 339, y: 0}
+  m_AnchoredPosition: {x: -6, y: -213.18182}
   m_SizeDelta: {x: 1000, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1997910304402284427
@@ -5471,8 +5471,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 0.90909094, z: 0}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4771521177151677207}
+  m_Children: []
   m_Father: {fileID: 3770933341370419003}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -6342,7 +6341,6 @@ GameObject:
   - component: {fileID: 6477653295026259452}
   - component: {fileID: 1786498581019119712}
   - component: {fileID: 5431422852473176291}
-  - component: {fileID: 6191644151830429116}
   m_Layer: 5
   m_Name: Map
   m_TagString: Untagged
@@ -6438,20 +6436,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9899feaf0c834c64a844c1848ba61f77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkableCoords: []
---- !u!114 &6191644151830429116
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6039764426394178754}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9899feaf0c834c64a844c1848ba61f77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkableCoords: []
 --- !u!1 &6271551943877086125
 GameObject:
   m_ObjectHideFlags: 0
@@ -7992,7 +7976,6 @@ MonoBehaviour:
   Infos: {fileID: 0}
   NaviSearch: {fileID: 0}
   ARNavi: {fileID: 0}
-  Popup: {fileID: 4014487644229089356}
 --- !u!1 &8308521936995234684
 GameObject:
   m_ObjectHideFlags: 0
@@ -8632,7 +8615,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3770933341370419003
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8646,6 +8629,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6866592207609980449}
+  - {fileID: 4771521177151677207}
   - {fileID: 6967209539336408064}
   - {fileID: 1578525249223355365}
   - {fileID: 8403767992130014597}

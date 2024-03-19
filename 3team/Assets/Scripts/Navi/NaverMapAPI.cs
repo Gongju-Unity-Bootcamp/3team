@@ -53,7 +53,6 @@ public class NaverMapAPI : MonoBehaviour
     private Vector2 tennisCourtPosition;
     private Vector2 playgroundPosition;
 
-    //private MapProcessor _mapProcessor;
     private void Start()
     {
 
@@ -62,7 +61,7 @@ public class NaverMapAPI : MonoBehaviour
 
         mapRawImage = GetComponent<RawImage>();
 
-
+       
         StartCoroutine(RequestLocationPermission());
         StartCoroutine(MapLoader());
         StartCoroutine(UpdateUserLocation());
@@ -140,7 +139,7 @@ public class NaverMapAPI : MonoBehaviour
     IEnumerator MapLoader()
     {
         string str = $"{strBaseURL}?center={longitude},{latitude}&level={level}&w={mapWidth}&h={mapHeight}";
-
+        
         UnityWebRequest request = UnityWebRequestTexture.GetTexture(str);
 
         request.SetRequestHeader("X-NCP-APIGW-API-KEY-ID", clientId);
@@ -156,7 +155,6 @@ public class NaverMapAPI : MonoBehaviour
         {
             mapTexture = DownloadHandlerTexture.GetContent(request);
             mapRawImage.texture = mapTexture;
-            
         }
     }
     
@@ -165,7 +163,6 @@ public class NaverMapAPI : MonoBehaviour
         
         // 위치를 float로 변환
         Vector2 normalizedPos = Clamping(latitude, longitude);
-
         locationButton.GetComponent<RectTransform>().anchorMin = normalizedPos;
         locationButton.GetComponent<RectTransform>().anchorMax = normalizedPos;
 
@@ -198,7 +195,7 @@ public class NaverMapAPI : MonoBehaviour
         }
     }
 
-    private Vector2 Clamping(float latitude, float longitude)
+    public Vector2 Clamping(float latitude, float longitude)
     {
         float clampedLat = Mathf.Clamp(latitude, float.Parse(minMaplati), float.Parse(maxMaplati));
         float clampedLong = Mathf.Clamp(longitude, float.Parse(minMaplong), float.Parse(maxMaplong));

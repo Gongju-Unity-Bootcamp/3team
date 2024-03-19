@@ -8,7 +8,7 @@ public class MapProcessor1 : MonoBehaviour
     private int gridSizeX;
     private int gridSizeY;
     private float brightnessThreshold = 0.964444444444444f; // 밝기 값을 기준으로 하얀색 판별에 사용될 임계값
-
+    private NaverMapAPI _naverMapAPI;
     // 그리드 타입을 나타내는 열거형
     public enum GridType
     {
@@ -19,16 +19,14 @@ public class MapProcessor1 : MonoBehaviour
     // 이미지를 2중 배열로 변환한 그리드
     private GridType[,] grid;
 
-    int a;
-    // 이미지에서 가져온 좌표 리스트
-    public List<Vector2Int> walkableCoords;
-
     public void Init(Vector2 userPosition, Vector2 buttonPosition)
     {
-        NaverMapAPI _naverMapAPI = FindObjectOfType<NaverMapAPI>();
+        _naverMapAPI = gameObject.GetComponent<NaverMapAPI>();
 
         mapTexture = _naverMapAPI.mapTexture;
         InitializeGrid();
+        buttonPosition = _naverMapAPI.Clamping(buttonPosition.x,buttonPosition.y);
+        userPosition = _naverMapAPI.Clamping(userPosition.x, userPosition.y);
         ProcessImage(userPosition, buttonPosition);
 
     }
@@ -50,6 +48,7 @@ public class MapProcessor1 : MonoBehaviour
     // 이미지 처리 함수
     void ProcessImage(Vector2 userPosition, Vector2 buttonPosition)
     {
+        
         if (mapTexture != null && grid != null)
         {
             for (int x = 0; x < gridSizeX; x++)
@@ -76,7 +75,8 @@ public class MapProcessor1 : MonoBehaviour
 
             Vector2Int userPos = FindClosestRoadCoordinate(userPosition);
             Vector2Int buttonPos = FindClosestRoadCoordinate(buttonPosition);
-
+            Debug.Log(userPos);
+            Debug.Log(buttonPos);
             queue.Enqueue(userPos);
             parentMap[userPos] = userPos;
 
@@ -124,6 +124,8 @@ public class MapProcessor1 : MonoBehaviour
 
             mapTexture.Apply();
         }
+        
+       
     }
     List<Vector2Int> GetNeighbors(Vector2Int pos)
     {
@@ -146,5 +148,7 @@ public class MapProcessor1 : MonoBehaviour
             closestY = Mathf.Clamp(closestY + 1, 0, gridSizeY - 1);
         }
         return new Vector2Int(closestX, closestY);
+
+
     }
 }
