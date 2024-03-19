@@ -38,7 +38,6 @@ public class MainMenu : UI
     }
     protected override void ClickCheck(Button bt)
     {
-        Debug.Log(bt.gameObject.name);
         if (bt == ExitButton) 
         { 
             ExitApplication();
