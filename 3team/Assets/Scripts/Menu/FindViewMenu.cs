@@ -93,11 +93,7 @@ public class FindViewMenu : UI
 
     void GoRoadInfo()
     {
-        //NaviSearch오브젝트 띄울때 표기될 정보 메소드
-        //현재 인포에 보이는 mapData가져옴
-        GameObject go = base.BackPage();
-        go.SetActive(false);
-        //_mapProcessor.Init(Manager.UI.user
+         base.BackPage();
         Debug.Log(Manager.UI.userPosition);
         _mapProcessor.Init(Manager.UI.userPosition, GetDestination());
         base.ForwardPage(NaviSearch);
@@ -111,16 +107,19 @@ public class FindViewMenu : UI
 
     void EndARNavi(GameObject go = null)
     {
-        if (go == Map) 
-        { 
+        if (Manager.UI.BStack.Count == 1) 
+        {
+            base.ForwardPage(Manager.UI.FindView);
             return; 
         }
         else 
         {
-            GameObject ggo = BackPage();
-            ggo.SetActive(false);
+            GameObject ggo = Manager.UI.BStack.Peek();
+            base.BackPage();
             EndARNavi(ggo); 
+
         }
+        Debug.Log(Manager.UI.BStack.Count);
     }
 
     Vector2 GetDestination()
