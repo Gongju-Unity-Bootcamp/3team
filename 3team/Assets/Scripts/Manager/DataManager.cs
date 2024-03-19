@@ -20,8 +20,8 @@ public class DataManager : MonoBehaviour
         Map = ParseToDict<MapID, MapData>("Assets/Resources/Data/MapData.csv", data => data.Id);
         //Sound = ParseToDict<SoundID, SoundData>("Assets/Resources/Data/Sound.csv", data => data.Id);
 #else
-        TextAsset mapCSV = Resources.Load<TextAsset>("Data/Map");
-        //Map = ParseToDict<MapID, MapData>(mapCSV.text, data => data.Id);
+        TextAsset mapCSV = Resources.Load<TextAsset>("Data/MapData");
+        Map = ParseToDict<MapID, MapData>(mapCSV.text, data => data.Id);
 
 #endif
 
