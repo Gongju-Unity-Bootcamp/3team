@@ -2,38 +2,34 @@ using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
 using UnityEditor;
-using System;
 
 public class MainMenu : UI
 {
-    [SerializeField] private Button FindRoad;
-    [SerializeField] private Button Docent;
-    [SerializeField] private Button RoadView;
-    [SerializeField] private Button Exit;
+    [SerializeField] private Button FindRoadButton;
+    [SerializeField] private Button DocentButton;
+    [SerializeField] private Button RoadViewButton;
+    [SerializeField] private Button ExitButton;
 
     public void Start()
     {
-        FindRoad = transform.Find("FindRoadButton").GetComponent<Button>();
-        Docent = transform.Find("RoadViewButton").GetComponent<Button>();
-        RoadView = transform.Find("DocentButton").GetComponent<Button>();
-        Exit = transform.Find("ExitButton").GetComponent<Button>();
+        FindRoadButton = transform.Find("FindRoadButton").GetComponent<Button>();
+        DocentButton = transform.Find("DocentButton").GetComponent<Button>();
+        RoadViewButton = transform.Find("RoadViewButton").GetComponent<Button>();
+        ExitButton = transform.Find("ExitButton").GetComponent<Button>();
         SetButton();
     }
 
-    private void SetButton()
+    void SetButton()
     {
-        //base.Init();
-
         var buttonClicks = Observable.Merge(
-            FindRoad.OnClickAsObservable().Select(_ => FindRoad),
-            Docent.OnClickAsObservable().Select(_ => Docent),
-            RoadView.OnClickAsObservable().Select(_ => RoadView),
-            Exit.OnClickAsObservable().Select(_ => Exit)
+            FindRoadButton.OnClickAsObservable().Select(_ => FindRoadButton),
+            DocentButton.OnClickAsObservable().Select(_ => DocentButton),
+            RoadViewButton.OnClickAsObservable().Select(_ => RoadViewButton),
+            ExitButton.OnClickAsObservable().Select(_ => ExitButton)
         );
 
         buttonClicks.Subscribe(uiName => ClickCheck(uiName));
         Manager.UI.backButton.OnClickAsObservable().Subscribe(_ => GoBack());
-        //base.BStack.Push(gameObject);
     }
 
     void GoBack()
@@ -44,7 +40,8 @@ public class MainMenu : UI
     }
     protected override void ClickCheck(Button bt)
     {
-        if(bt == Exit || bt == null) 
+        Debug.Log(bt.gameObject.name);
+        if (bt == ExitButton) 
         { 
             ExitApplication();
             return;
@@ -52,12 +49,12 @@ public class MainMenu : UI
 
         GameObject go = bt switch
         {
-            _ when bt == FindRoad => Manager.UI.FindView,
-            _ when bt == Docent   => Manager.UI.Docent,
-            _ when bt == RoadView => Manager.UI.RoadView,
+            _ when bt == FindRoadButton => Manager.UI.FindView,
+            _ when bt == DocentButton   => Manager.UI.Docent,
+            _ when bt == RoadViewButton => Manager.UI.RoadView,
             _ => null
         };
-
+        Debug.Log(go.name);
         base.ForwardPage(go);
     }
 

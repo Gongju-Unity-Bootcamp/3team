@@ -7,16 +7,20 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public GameObject UIController;
-
     public GameObject MainMenu;
     public GameObject FindView;
     public GameObject Docent;
     public GameObject RoadView;
     public GameObject Exit;
+
     public Button backButton;
+    
     public Vector2 userPosition;
-    public Vector2 buttonPosition;
-    protected const int THIS_MAIN_MANU = 2;
+    
+    protected const int THIS_MAIN_MANU = 1;
+    
+    protected bool isBackButton;
+    
     public Stack<GameObject> BStack = new Stack<GameObject>();
 
     public void Init()
@@ -30,23 +34,34 @@ public class UIManager : MonoBehaviour
         BStack.Push(gameObject);
     }
 
-    public void BackButtonCheak(GameObject go = null)
+    protected virtual void ClickCheck() { }
+    protected virtual void ClickCheck(Button bt) { }
+
+    public void BackButtonCheak()
     {
-        if (!backButton.gameObject.activeSelf)
+        GameObject go = BStack.Peek();
+        if (go.name == "ARNavi"|| go.name == "MainMenu")
         {
-            backButton.gameObject.SetActive(true);
+            isBackButton = false;
         }
-        if (go != null && go.name == "ARNavi")
+
+        else if (BStack.Count == THIS_MAIN_MANU)
         {
-            backButton.gameObject.SetActive(false);
+            isBackButton = false;
         }
-        if (BStack.Count == THIS_MAIN_MANU)
-        {
-            backButton.gameObject.SetActive(false);
-        }
+
         else
         {
-            backButton.gameObject.SetActive(true);
+            isBackButton = true;
+        }
+
+        if (isBackButton) 
+        { 
+            backButton.gameObject.SetActive(true); 
+        }
+        else 
+        { 
+            backButton.gameObject.SetActive(false); 
         }
     }
 
