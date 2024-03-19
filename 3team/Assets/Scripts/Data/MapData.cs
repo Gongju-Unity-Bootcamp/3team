@@ -24,14 +24,13 @@ public class MapData
 {
     public MapID Id {  get; set; }
     public string Name { get; set; }
-    public float Longitude { get; set; }
     public float Latitude { get; set; }
+    public float Longitude { get; set; }
     public string Type { get; set; }
     public string Sprite { get; set; }
     public string Sound { get; set; }
     public string Information { get; set; }
     public string Address { get; set; }
-
     public float DoorLati { get; set; }
     public float DoorLong { get; set; }
 }

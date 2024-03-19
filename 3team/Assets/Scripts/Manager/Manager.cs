@@ -28,10 +28,18 @@ public class Manager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
+        GetComponent();
         Init();
     }
 
+    void GetComponent()
+    {
+        Sound = GetComponent<SoundManager>();
+        Resources = GetComponent<ResourcesManager>();
+        Data = GetComponent<DataManager>();
+        UI = GetComponent<UIManager>();
+        Vidio = GetComponent<VidioManager>();
+    }
     void Init()
     {
         GameObject go;
@@ -58,10 +66,10 @@ public class Manager : MonoBehaviour
         Vidio = go.AddComponent<VidioManager>();
 
 
-        Data.Init();
-        Resources.Init();
-        Sound.Init();
-        UI.Init();
+        //Data.Init();
+        //Resources.Init();
+        //Sound.Init();
+        //UI.Init();
         Vidio.Init();
     }
 
