@@ -102,6 +102,7 @@ public class FindViewMenu : UI
     void GoNaviSearch(GameObject go = null)
     {
         base.ForwardPage(ARNavi);
+        _mapProcessor.DisplayPath(_mapProcessor.path);
     }
 
 
