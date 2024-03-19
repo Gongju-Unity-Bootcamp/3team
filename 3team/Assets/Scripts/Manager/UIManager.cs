@@ -39,7 +39,7 @@ public class UIManager : MonoBehaviour
 
     public void BackButtonCheak()
     {
-        GameObject go = BStack.Peek();
+        GameObject go = Manager.UI.BStack.Peek();
         if (go.name == "ARNavi"|| go.name == "MainMenu")
         {
             isBackButton = false;
