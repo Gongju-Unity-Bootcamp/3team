@@ -34,9 +34,7 @@ public class MainMenu : UI
 
     void GoBack()
     {
-        GameObject go = base.BackPage();
-        go.SetActive(false);
-
+        base.BackPage();
     }
     protected override void ClickCheck(Button bt)
     {

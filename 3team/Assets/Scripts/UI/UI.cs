@@ -4,10 +4,12 @@ using UnityEngine.UI;
 
 public abstract class UI : MonoBehaviour
 {
-    protected GameObject BackPage()
+    protected void BackPage()
     {
+        GameObject go = Manager.UI.BStack.Pop();
+        go.SetActive(false);
         Manager.UI.BackButtonCheak();
-        return Manager.UI.BStack.Pop();
+        
     }
 
     protected void ForwardPage(GameObject go)
