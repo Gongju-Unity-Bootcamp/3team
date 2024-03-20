@@ -7,7 +7,7 @@ public class SpawnManager : MonoBehaviour
 {
     GameObject Spawn;
 
-    public void Awake()
+    public void Init()
     {
         GameObject go = new GameObject();
         go.name = "Spawn";

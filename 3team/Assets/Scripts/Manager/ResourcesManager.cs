@@ -14,7 +14,7 @@ public class ResourcesManager : MonoBehaviour
     public Dictionary<string, VideoClip> Video { get; private set; }
 
 
-    public void Awake()
+    public void Init()
     {
         Prefabs = new Dictionary<string, GameObject>();
         AudioClips = new Dictionary<string, AudioClip>();
