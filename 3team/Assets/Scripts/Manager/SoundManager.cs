@@ -10,7 +10,7 @@ public class SoundManager : MonoBehaviour
     public AudioSource Effect { get; set; }
     public AudioSource Effect2 { get; set; }
     public AudioSource Effect3 { get; set; }
-    public void Awake()
+    public void Init()
     {
         BGM = gameObject.AddComponent<AudioSource>();
         Effect = gameObject.AddComponent<AudioSource>();  
