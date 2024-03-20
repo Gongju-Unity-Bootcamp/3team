@@ -25,7 +25,6 @@ public class FindViewMenu : UI
         SetComponent();
         
         Init();
-
         ARNavi.SetActive(false);
     }
     void SetComponent()
@@ -55,7 +54,6 @@ public class FindViewMenu : UI
                  roadInfoButton.OnClickAsObservable(),
                  naviEndButton.OnClickAsObservable()).Subscribe(go => ClickCheck());
     }
-
 
     void Init()
     {

@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
     
     public Stack<GameObject> BStack = new Stack<GameObject>();
 
-    public void Init()
+    public void Awake()
     {
         UIController = GameObject.Find("UIController");
         MainMenu = UIController.transform.Find("MainMenu").gameObject;
