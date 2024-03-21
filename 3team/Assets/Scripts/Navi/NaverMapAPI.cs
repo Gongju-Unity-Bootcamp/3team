@@ -23,8 +23,8 @@ public class NaverMapAPI : MonoBehaviour
     private string mapWidth = "";
     private string mapHeight = "";
 
-    private string userLatitude = "";
-    private string userLongitude = "";
+    private float userLatitude;
+    private float userLongitude;
 
     public Image userLocationMarker;
     public RectTransform mapRectTransform;
@@ -126,10 +126,10 @@ public class NaverMapAPI : MonoBehaviour
                 yield break;
             }
 
-            userLatitude = Input.location.lastData.latitude.ToString();
-            userLongitude = Input.location.lastData.longitude.ToString();
+            userLatitude = Input.location.lastData.latitude;
+            userLongitude = Input.location.lastData.longitude;
 
-            SetUserLocationMarker();
+            SetUserLocationMarker(userLatitude, userLongitude);
             Input.location.Stop();
             yield return new WaitForSeconds(1.5f);  // 0.5초마다 사용자 위치 업데이트
         }
@@ -175,23 +175,13 @@ public class NaverMapAPI : MonoBehaviour
         return normalizedPos;
     }
 
-    private void SetUserLocationMarker()
+    private void SetUserLocationMarker(float userLat, float userLong)
     {
-        // 사용자의 위치가 유효한 경우에만 처리
-        if (!string.IsNullOrEmpty(userLatitude) && !string.IsNullOrEmpty(userLongitude))
-        {
-            // 사용자 위치를 float로 변환
-            float userLat = float.Parse(userLatitude);
-            float userLong = float.Parse(userLongitude);
-
-
-            Vector2 normalizedUserPos = Clamping(userLat, userLong);
-            Manager.UI.userPosition = normalizedUserPos;
-            // userLocationMarker 위치 설정
-            userLocationMarker.rectTransform.anchorMin = Manager.UI.userPosition;
-            userLocationMarker.rectTransform.anchorMax = Manager.UI.userPosition;
-
-        }
+        Vector2 normalizedUserPos = Clamping(userLat, userLong);
+        Manager.UI.userPosition = normalizedUserPos;
+        // userLocationMarker 위치 설정
+        userLocationMarker.rectTransform.anchorMin = Manager.UI.userPosition;
+        userLocationMarker.rectTransform.anchorMax = Manager.UI.userPosition;
     }
 
     public Vector2 Clamping(float latitude, float longitude)
