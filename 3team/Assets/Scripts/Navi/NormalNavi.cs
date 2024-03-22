@@ -5,16 +5,14 @@ using UnityEngine.UI;
 
 public class NormalNavi : MonoBehaviour
 {
-    private GameObject arCamera;
-    private ARCamera _ARCamera;
-    private RawImage rawImage;
+    private MapProcessor1 _mapProcessor;
     // Start is called before the first frame update
     void Start()
     {
-        rawImage = GetComponent<RawImage>();
-        arCamera = GameObject.FindWithTag("MainCamera");
-        _ARCamera = arCamera.GetComponent<ARCamera>();
-        _ARCamera.OutputCamera(rawImage);
+        Transform FindView = transform.parent.parent;
+        Transform map = FindView.GetChild(0);
+        _mapProcessor = map.GetComponent<MapProcessor1>();
+        _mapProcessor.InitStartProcessImage(_mapProcessor.userPos, _mapProcessor.buttonPos);
     }
 
 }
