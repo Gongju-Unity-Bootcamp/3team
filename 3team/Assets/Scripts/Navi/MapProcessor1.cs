@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 public class MapProcessor1 : MonoBehaviour
 {
     private Texture2D mapTexture;
@@ -24,11 +25,11 @@ public class MapProcessor1 : MonoBehaviour
     public void Init(Vector2 userPosition, Vector2 buttonPosition)
     {
         _naverMapAPI = gameObject.GetComponent<NaverMapAPI>();
-        
+
         mapTexture = _naverMapAPI.mapTexture;
         InitializeGrid();
         TextureClassification();
-        buttonPosition = _naverMapAPI.Clamping(buttonPosition.x,buttonPosition.y);
+        buttonPosition = _naverMapAPI.Clamping(buttonPosition.x, buttonPosition.y);
         buttonsPos = buttonPosition;
         userPosition = _naverMapAPI.Clamping(userPosition.x, userPosition.y);
         StartCoroutine("StartProcessImage");
@@ -52,7 +53,7 @@ public class MapProcessor1 : MonoBehaviour
     }
     // 이미지 처리 함수
 
-    public List<Vector2Int> path { get;set; }
+    public List<Vector2Int> path { get; set; }
     public bool isProcessImage { get; set; }
 
     private void TextureClassification()
@@ -80,26 +81,37 @@ public class MapProcessor1 : MonoBehaviour
 
     IEnumerator StartProcessImage()
     {
-        while(true)
+        while (true)
         {
             ProcessImage(Manager.UI.userPosition, buttonsPos);
+            Debug.Log("맵그리기");
             yield return new WaitForSeconds(3f);
         }
     }
+
+    public Vector2Int userPos { get; set; }
+    public Vector2Int buttonPos { get; set; }
     void ProcessImage(Vector2 userPosition, Vector2 buttonPosition)
     {
-        
+
         if (mapTexture != null && grid != null)
         {
             Queue<Vector2Int> queue = new Queue<Vector2Int>();
             Dictionary<Vector2Int, Vector2Int> parentMap = new Dictionary<Vector2Int, Vector2Int>(); // 백트래킹을 위한 부모를 추적하는 사전
 
-            Vector2Int userPos = FindClosestRoadCoordinate(userPosition);
-            Vector2Int buttonPos = FindClosestRoadCoordinate(buttonPosition);
+            userPos = FindClosestRoadCoordinate(userPosition);
+            buttonPos = FindClosestRoadCoordinate(buttonPosition);
 
             queue.Enqueue(userPos);
             parentMap[userPos] = userPos;
 
+            if (path != null)
+            {
+                foreach (Vector2Int pathPos in path)
+                {
+                    mapTexture.SetPixel(pathPos.x, pathPos.y, Color.white);
+                }
+            }
             path = new List<Vector2Int>();
 
             while (queue.Count > 0)
@@ -144,7 +156,7 @@ public class MapProcessor1 : MonoBehaviour
             isProcessImage = true;
             mapTexture.Apply();
         }
-     
+
     }
     List<Vector2Int> GetNeighbors(Vector2Int pos)
     {
@@ -167,5 +179,26 @@ public class MapProcessor1 : MonoBehaviour
             closestY = Mathf.Clamp(closestY + 1, 0, gridSizeY - 1);
         }
         return new Vector2Int(closestX, closestY);
+    }
+
+    public RawImage displayRawImage;
+    public void InitStartProcessImage(Vector2 userPosition, Vector2 buttonPosition)
+    {
+        // 이미지 처리 및 경로 탐색
+        StartCoroutine("StartProcessImageNormalNavi");
+    }
+
+    IEnumerator StartProcessImageNormalNavi()
+    {
+        while (true)
+        {
+            ProcessImage(Manager.UI.userPosition, buttonsPos);
+
+            // RawImage에 맵 이미지 출력
+            Texture2D subsetMapImage = _naverMapAPI.GetMapImageSubset(userPos, 240, 200);
+            displayRawImage.texture = subsetMapImage;
+
+            yield return new WaitForSeconds(3f);
+        }
     }
 }

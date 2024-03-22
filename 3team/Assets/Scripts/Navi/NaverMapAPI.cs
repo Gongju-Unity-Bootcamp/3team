@@ -194,4 +194,24 @@ public class NaverMapAPI : MonoBehaviour
 
         return Pos;
     }
+
+    public Texture2D GetMapImageSubset(Vector2Int userPos, int width, int height)
+    {
+        int startX = Mathf.Clamp(userPos.x - width / 2, 0, mapTexture.width - width);
+        int startY = Mathf.Clamp(userPos.y - height / 2, 0, mapTexture.height - height);
+
+        Texture2D subsetTexture = new Texture2D(width, height);
+
+        for (int x = startX; x < startX + width; x++)
+        {
+            for (int y = startY; y < startY + height; y++)
+            {
+                subsetTexture.SetPixel(x - startX, y - startY, mapTexture.GetPixel(x, y));
+            }
+        }
+
+        subsetTexture.Apply();
+
+        return subsetTexture;
+    }
 }

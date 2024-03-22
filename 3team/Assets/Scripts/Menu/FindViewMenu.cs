@@ -20,7 +20,8 @@ public class FindViewMenu : UI
 
     private MapProcessor1 _mapProcessor;
 
-    private ARNavi _arNavi;
+    private ARNavi _navi;
+    private Direction _direction;
     private void Awake()
     {
         SetComponent();
@@ -101,9 +102,12 @@ public class FindViewMenu : UI
     void GoNaviSearch(GameObject go = null)
     {
         base.ForwardPage(ARNavi);
-        //_arNavi = GameObject.FindWithTag("Player").GetComponent<ARNavi>();
-        //_arNavi = transform.Find("ARNavi").GetComponent<ARNavi>();
-        //_arNavi.DisplayPath(_mapProcessor.path);
+        //GameObject arCamera = GameObject.FindWithTag("MainCamera");
+        //_navi = arCamera.GetComponent<ARNavi>();
+        //_/navi.StartDrawLine(_mapProcessor.path);
+        GameObject direction = GameObject.FindWithTag("Direction");
+        _direction = direction.GetComponent<Direction>();
+        _direction.StartDirection(_mapProcessor.path);
     }
 
 
