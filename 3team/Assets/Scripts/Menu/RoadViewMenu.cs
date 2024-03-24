@@ -2,14 +2,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
 using UnityEngine.EventSystems;
+using System;
 
 public class RoadViewMenu : MonoBehaviour
 {
-    [SerializeField] private Image image;
-    [SerializeField] private Button upArrow;
-    [SerializeField] private Button downArrow;
-    [SerializeField] private Button rightArrow;
-    [SerializeField] private Button leftArrow;
+    private Image image;
+    private Button upArrow;
+    private Button downArrow;
+    private Button rightArrow;
+    private Button leftArrow;
 
     private string[][] roadList;
     private readonly int verticalCount;
@@ -39,7 +40,6 @@ public class RoadViewMenu : MonoBehaviour
     }
     private void Start()
     {
-        Debug.Log(roadList[1][6]);
         RoadMove(userY, userX);
         SetArrow();
     }
@@ -78,7 +78,8 @@ public class RoadViewMenu : MonoBehaviour
             "Up"    => (1, 0),
             "Down"  => (-1, 0),
             "Left"  => (0, -1),
-            "Right" => (0, 1)
+            "Right" => (0, 1),
+            _ => throw new ArgumentException("Unexpected value: " + go.name)
         };
         userY += index.Item1;
         userX += index.Item2;

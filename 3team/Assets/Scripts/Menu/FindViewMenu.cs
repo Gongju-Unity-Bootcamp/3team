@@ -1,8 +1,8 @@
-
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
 using UnityEngine.EventSystems;
+
 
 public class FindViewMenu : UI
 {
@@ -16,7 +16,6 @@ public class FindViewMenu : UI
     private Button roadInfoButton;
     private Button naviSearchButton;
     private Button naviEndButton;
-    //private Button[] markerButtons;
 
     private MapProcessor1 _mapProcessor;
 
@@ -25,36 +24,26 @@ public class FindViewMenu : UI
     private void Awake()
     {
         SetComponent();
-        
         Init();
         ARNavi.SetActive(false);
     }
+
     void SetComponent()
     {
-        Map              = transform.Find("Map").gameObject;
-        //Markers          = Map.transform.Find("Markers").gameObject;
-        Infos            = transform.Find("Info").gameObject;
-        NaviSearch       = transform.Find("NaviSearch").gameObject;
-        ARNavi           = transform.Find("ARNavi").gameObject;
+        Map = transform.Find("Map").gameObject;
+        Infos = transform.Find("Info").gameObject;
+        NaviSearch = transform.Find("NaviSearch").gameObject;
+        ARNavi = transform.Find("ARNavi").gameObject;
 
-        docentInfo = Infos.GetComponent<MarkerInfo>();
         _mapProcessor = transform.Find("Map").GetComponent<MapProcessor1>();
-        //Marker -> Info
-        //ÀÌ°Ç Marker¿ÀºêÁ§Æ® µû·Î °ü¸®
 
-        //Info -> RoadInfo
-        roadInfoButton   = Infos.transform.Find("RoadInfoButton").gameObject.GetComponent<Button>();
-
-        //navi -> popup
+        roadInfoButton = Infos.transform.Find("RoadInfoButton").gameObject.GetComponent<Button>();
         naviSearchButton = NaviSearch.transform.Find("NaviSearchButton").gameObject.GetComponent<Button>();
-
-
-        //RoadView -> Map
-        naviEndButton    = ARNavi.transform.Find("NaviEndButton").gameObject.GetComponent<Button>();
+        naviEndButton = ARNavi.transform.Find("NaviEndButton").gameObject.GetComponent<Button>();
 
         Observable.Merge(naviSearchButton.OnClickAsObservable(),
-                 roadInfoButton.OnClickAsObservable(),
-                 naviEndButton.OnClickAsObservable()).Subscribe(go => ClickCheck());
+                         roadInfoButton.OnClickAsObservable(),
+                         naviEndButton.OnClickAsObservable()).Subscribe(go => ClickCheck());
     }
 
     void Init()
@@ -64,26 +53,23 @@ public class FindViewMenu : UI
         {
             GameObject go = Manager.Resources.Instantiate("Marker", Map.transform);
             Marker mk = go.GetComponent<Marker>();
-            mk.Init((MapID)i+1);
-            Debug.Log((MapID)i + 1);
-;
+            mk.Init((MapID)i + 1);
         }
-
     }
 
     protected override void ClickCheck()
     {
         GameObject go = EventSystem.current.currentSelectedGameObject;
-        
+
         switch (go.name)
         {
-            case "RoadInfoButton": //Info¾È¿¡ ÀÖ´Â ¹öÆ°
+            case "RoadInfoButton": //Infoï¿½È¿ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½Æ°
                 GoRoadInfo();
                 break;
-            case "NaviSearchButton": //NaviSearch¾È¿¡ ÀÖ´Â ¹öÆ°
+            case "NaviSearchButton": //NaviSearchï¿½È¿ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½Æ°
                 GoNaviSearch();
                 break;
-            case "NaviEndButton": //AR¾È³» Á¾·á
+            case "NaviEndButton": //ARï¿½È³ï¿½ ï¿½ï¿½ï¿½ï¿½
                 EndARNavi();
                 break;
             default:
@@ -93,10 +79,16 @@ public class FindViewMenu : UI
 
     void GoRoadInfo()
     {
-         base.BackPage();
-        Debug.Log(Manager.UI.userPosition);
-        _mapProcessor.Init(Manager.UI.userPosition, GetDestination());
-        base.ForwardPage(NaviSearch);
+        base.BackPage();
+        if (Manager.UI.IsUserPosition())
+        {
+            base.ForwardPage(Manager.UI.DocentFeature);
+        }
+        else
+        {
+            _mapProcessor.Init(Manager.UI.userPosition, GetDestination());
+            base.ForwardPage(NaviSearch);
+        }
     }
 
     void GoNaviSearch(GameObject go = null)
@@ -110,22 +102,20 @@ public class FindViewMenu : UI
         _direction.StartDirection(_mapProcessor.path);
     }
 
-
     void EndARNavi(GameObject go = null)
     {
-        if (Manager.UI.BStack.Count == 1) 
+
+        if (Manager.UI.BStack.Count == 1)
         {
             base.ForwardPage(Manager.UI.FindView);
-            return; 
+            return;
         }
-        else 
+        else
         {
-            GameObject ggo = Manager.UI.BStack.Peek();
             base.BackPage();
-            EndARNavi(ggo); 
+            EndARNavi(go);
 
         }
-        Debug.Log(Manager.UI.BStack.Count);
     }
 
     Vector2 GetDestination()
@@ -136,5 +126,4 @@ public class FindViewMenu : UI
         Vector2 locatioDoor = new Vector2(Lati, Long);
         return locatioDoor;
     }
-
 }
