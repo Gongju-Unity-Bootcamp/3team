@@ -90,12 +90,13 @@ public class UIManager : MonoBehaviour
     //false: 유저가 마커 범위 밖에 있는거
     public bool IsUserPosition()
     {
-        float disX = markerPosition.x - userPosition.x;
-        float disY = markerPosition.y - userPosition.y;
+        Transform map = FindView.transform.GetChild(0);
+        NaverMapAPI naverMapAPI = map.GetComponent<NaverMapAPI>();
+        float disX = markerPosition.x - naverMapAPI.userLongitude;
+        float disY = markerPosition.y - naverMapAPI.userLatitude;
         float distance = Mathf.Sqrt(disX * disX + disY * disY);
-        float criteria = 0.00000000000000005f;
+        float criteria = 0.000349f;
         bool isWithinRange = distance < criteria;
-
         return isWithinRange;
     }
 

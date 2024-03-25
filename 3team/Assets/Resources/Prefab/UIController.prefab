@@ -3703,7 +3703,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4614922448498826627}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdaa0ed89dad0c84b86c9cf2b180cf31, type: 3}
+  m_Script: {fileID: 11500000, guid: 9dac4dbcf6da79c4ebc15e03f4a3b66f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   FindRoadButton: {fileID: 0}
@@ -5468,7 +5468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9899feaf0c834c64a844c1848ba61f77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayRawImage: {fileID: 0}
+  displayRawImage: {fileID: 3103879098103130461}
 --- !u!1 &6811835288295368765
 GameObject:
   m_ObjectHideFlags: 0
@@ -7540,7 +7540,7 @@ GameObject:
   - component: {fileID: 1433396004854463857}
   - component: {fileID: 2049390234299701818}
   m_Layer: 5
-  m_Name: ARNavi (1)
+  m_Name: ARNavi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
