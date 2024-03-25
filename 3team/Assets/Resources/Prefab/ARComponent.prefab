@@ -258,8 +258,7 @@ MonoBehaviour:
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
-  m_Cameras:
-  - {fileID: 0}
+  m_Cameras: []
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
@@ -520,6 +519,7 @@ GameObject:
   - component: {fileID: 4127022335639165904}
   - component: {fileID: 5996649767941138173}
   - component: {fileID: 3802885466684863485}
+  - component: {fileID: 3690582753558472652}
   m_Layer: 0
   m_Name: XR Origin (XR Rig)
   m_TagString: Untagged
@@ -616,3 +616,20 @@ MonoBehaviour:
   m_FacePrefab: {fileID: 7069092136266384838, guid: 45291f00239c55c468e3ccad5ed897e5,
     type: 3}
   m_MaximumFaceCount: 1
+--- !u!114 &3690582753558472652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8155458669433494667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dea56a9eaadd1c439095de4f9a371cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedLibrary: {fileID: 11400000, guid: 02ab514fa1ab7fd4eafbb435cb85163c,
+    type: 2}
+  m_MaxNumberOfMovingImages: 0
+  m_TrackedImagePrefab: {fileID: 3230208616436128227, guid: 43b41b7e3c2983841b94feb5e5af07de,
+    type: 3}

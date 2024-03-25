@@ -4,6 +4,7 @@ using UnityEngine;
 using UniRx;
 using UnityEngine.UI;
 using System;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -14,13 +15,16 @@ public class UIManager : MonoBehaviour
     public GameObject RoadView;
     public GameObject Exit;
     public GameObject DocentFeature;
+    
     public Button backButton;
+
     public Vector2 userPosition;
     public Vector2 markerPosition;
     
     protected const int THIS_MAIN_MANU = 1;
     
     protected bool isBackButton;
+    private bool isSceneChange;
 
     public Stack<GameObject> BStack;
 
@@ -43,19 +47,21 @@ public class UIManager : MonoBehaviour
 
     public void BackButtonCheak()
     {
+        //ARScene에서 뒤로가기 눌렀을때
+        if (isSceneChange)
+        {
+            SceneManager.LoadScene("MainScene");
+            isSceneChange = false;
+            return;
+        }
+
+        //MainScene에서 작동
         GameObject go = Manager.UI.BStack.Peek();
-        Debug.Log($"Manager{go.name}");
-        Debug.Log(Manager.UI.BStack.Count);
 
         if (go.name == "ARNavi"|| go.name == "MainMenu")
         {
             isBackButton = false;
         }
-
-        //else if (BStack.Count == THIS_MAIN_MANU)
-        //{
-        //    isBackButton = false;
-        //}
 
         else
         {
@@ -70,6 +76,14 @@ public class UIManager : MonoBehaviour
         { 
             backButton.gameObject.SetActive(false); 
         }
+
+        if (isSceneChange)
+        {
+            SceneManager.LoadScene("MainScene");
+            isSceneChange = false;
+        }
+
+        
     }
 
     //true: 유저가 마커 범위안에 있는거
