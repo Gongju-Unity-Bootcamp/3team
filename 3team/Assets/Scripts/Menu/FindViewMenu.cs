@@ -94,6 +94,9 @@ public class FindViewMenu : UI
     void GoNaviSearch(GameObject go = null)
     {
         base.ForwardPage(ARNavi);
+        Transform coupon = ARNavi.transform.Find("Coupon");
+        Coupon _coupon = coupon.GetComponent<Coupon>();
+        _coupon.CouponUpdate();
         //GameObject arCamera = GameObject.FindWithTag("MainCamera");
         //_navi = arCamera.GetComponent<ARNavi>();
         //_/navi.StartDrawLine(_mapProcessor.path);
