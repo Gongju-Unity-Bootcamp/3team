@@ -97,9 +97,9 @@ public class FindViewMenu : UI
         //GameObject arCamera = GameObject.FindWithTag("MainCamera");
         //_navi = arCamera.GetComponent<ARNavi>();
         //_/navi.StartDrawLine(_mapProcessor.path);
-        GameObject direction = GameObject.FindWithTag("Direction");
-        _direction = direction.GetComponent<Direction>();
-        _direction.StartDirection(_mapProcessor.path);
+        //GameObject direction = GameObject.FindWithTag("Direction");
+        //_direction = direction.GetComponent<Direction>();
+        //_direction.StartDirection(_mapProcessor.path);
     }
 
     void EndARNavi(GameObject go = null)

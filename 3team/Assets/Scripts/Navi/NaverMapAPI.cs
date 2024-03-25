@@ -23,8 +23,8 @@ public class NaverMapAPI : MonoBehaviour
     private string mapWidth = "";
     private string mapHeight = "";
 
-    private float userLatitude;
-    private float userLongitude;
+    public float userLatitude { get; set; }
+    public float userLongitude { get; set; }
 
     public Image userLocationMarker;
     public RectTransform mapRectTransform;
