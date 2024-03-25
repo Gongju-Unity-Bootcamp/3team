@@ -28,6 +28,8 @@ public class UIManager : MonoBehaviour
 
     public Stack<GameObject> BStack;
 
+    private Transform map;
+    private NaverMapAPI _naverMapApi;
     public void Init()
     {
         Manager.Resources.Instantiate("UIController");
@@ -40,6 +42,9 @@ public class UIManager : MonoBehaviour
         backButton = UIController.transform.Find("BackButton").GetComponent<Button>();
         BStack = new Stack<GameObject>();
         BStack.Push(MainMenu);
+
+        map = FindView.transform.GetChild(0);
+        _naverMapApi = map.GetComponent<NaverMapAPI>();
     }
 
     protected virtual void ClickCheck() { }
@@ -88,14 +93,14 @@ public class UIManager : MonoBehaviour
 
     //true: 유저가 마커 범위안에 있는거
     //false: 유저가 마커 범위 밖에 있는거
+    public float distance { get; set; }
+    public float criteria { get; set; }
     public bool IsUserPosition()
     {
-        Transform map = FindView.transform.GetChild(0);
-        NaverMapAPI naverMapAPI = map.GetComponent<NaverMapAPI>();
-        float disX = markerPosition.x - naverMapAPI.userLongitude;
-        float disY = markerPosition.y - naverMapAPI.userLatitude;
-        float distance = Mathf.Sqrt(disX * disX + disY * disY);
-        float criteria = 0.000349f;
+        float disX = markerPosition.x - _naverMapApi.userLongitude;
+        float disY = markerPosition.y - _naverMapApi.userLatitude;
+        distance = Mathf.Sqrt(disX * disX + disY * disY);
+        criteria = 0.000349f;
         bool isWithinRange = distance < criteria;
         return isWithinRange;
     }

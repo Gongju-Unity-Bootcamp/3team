@@ -39,12 +39,14 @@ public class Marker : UI
         button = GetComponent<Button>();
         button.OnClickAsObservable().Subscribe(_ => ClickCheck());
     }
-
     protected override void ClickCheck()
     {
         GameObject go = Manager.UI.FindView.transform.Find("Info").gameObject;
         MarkerInfo info = go.GetComponent<MarkerInfo>();
         base.ForwardPage(go);
         info.Init(Id);
+        Transform coupon = transform.parent.parent.Find("ARNavi").Find("Coupon");
+        Coupon _coupon = coupon.GetComponent<Coupon>();
+        _coupon.couponName = Name;
     }
 }
