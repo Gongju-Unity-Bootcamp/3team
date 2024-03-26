@@ -7,7 +7,7 @@ public class ARCameraOutput : MonoBehaviour
     private ARCamera _ARCamera;
     private RawImage rawImage;
 
-    void Start()
+    private void Start()
     {
         rawImage = GetComponent<RawImage>();
         arCamera = GameObject.FindWithTag("MainCamera");
