@@ -47,6 +47,10 @@ public class Marker : UI
         info.Init(Id);
         Transform coupon = transform.parent.parent.Find("ARNavi").Find("Coupon");
         Coupon _coupon = coupon.GetComponent<Coupon>();
+        Transform destination = transform.parent.parent.Find("NaviSearch").Find("Finding a way PopUp").
+            Find("Destination").Find("DestinationLocation");
+        Text destinationText = destination.GetComponent<Text>();
+        destinationText.text = Name;
         _coupon.couponName = Name;
     }
 }

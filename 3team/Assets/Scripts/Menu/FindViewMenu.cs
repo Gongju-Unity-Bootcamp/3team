@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
 using UnityEngine.EventSystems;
+using UnityEngine.Android;
 
 
 public class FindViewMenu : UI
@@ -94,15 +95,12 @@ public class FindViewMenu : UI
     void GoNaviSearch(GameObject go = null)
     {
         base.ForwardPage(ARNavi);
+        GameObject arSession = GameObject.FindWithTag("ARSession");
+        arSession.transform.GetChild(0).gameObject.SetActive(true);
         Transform coupon = ARNavi.transform.Find("Coupon");
         Coupon _coupon = coupon.GetComponent<Coupon>();
         _coupon.CouponUpdate();
-        //GameObject arCamera = GameObject.FindWithTag("MainCamera");
-        //_navi = arCamera.GetComponent<ARNavi>();
-        //_/navi.StartDrawLine(_mapProcessor.path);
-        //GameObject direction = GameObject.FindWithTag("Direction");
-        //_direction = direction.GetComponent<Direction>();
-        //_direction.StartDirection(_mapProcessor.path);
+        
     }
 
     void EndARNavi(GameObject go = null)
