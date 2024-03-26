@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
-using UnityEngine.EventSystems;
 
 public class Marker : UI
 {
@@ -41,6 +40,8 @@ public class Marker : UI
     }
     protected override void ClickCheck()
     {
+        Manager.UI.markerPosition.x = Longitude;
+        Manager.UI.markerPosition.y = Latitude;
         GameObject go = Manager.UI.FindView.transform.Find("Info").gameObject;
         MarkerInfo info = go.GetComponent<MarkerInfo>();
         base.ForwardPage(go);
