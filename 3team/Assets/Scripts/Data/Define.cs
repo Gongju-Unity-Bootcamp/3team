@@ -18,6 +18,10 @@ public class Define
         public const string ICON = "Icon_";
     }
 
+    public static class Docent
+    {
+        public const string DOCENT = "Docent_";
+    }
     public static class PlaceName
     {
         public const string JUNGMAK = "Jungmak/";

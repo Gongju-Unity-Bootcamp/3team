@@ -6,11 +6,21 @@ using System;
 
 public class RoadViewMenu : MonoBehaviour
 {
-    private Image image;
+    private GameObject buttons;
+    private GameObject roadImages;
+
+    private Image imageCentor;
+    private Image imageUp;
+    private Image imageDown;
+    private Image imageLeft;
+    private Image imageRight; 
+    
     private Button upArrow;
     private Button downArrow;
     private Button rightArrow;
     private Button leftArrow;
+
+    private const string INP = "987654321";
 
     private string[][] roadList;
     private readonly int verticalCount;
@@ -20,30 +30,37 @@ public class RoadViewMenu : MonoBehaviour
     int userY = 1;
     int userX = 6;
 
-
-    //데이터테이블에서 가져와서 초기화
-    //public RoadViewMenu(int v, int h)
-    //{
-    //    verticalCount = v;
-    //    horizontalCOunt = h;
-    //}
     void Awake()
     {
-        image = transform.Find("Road").GetComponent<Image>();
-        upArrow = transform.Find("Up").GetComponent<Button>();
-        downArrow = transform.Find("Down").GetComponent<Button>();
-        leftArrow = transform.Find("Left").GetComponent<Button>();
-        rightArrow = transform.Find("Right").GetComponent<Button>();
+        SetComponent();
         SetButton();
-        SetRoadImage();
-
+        SetRoadArray();
     }
-    private void Start()
+
+    /// <summary>
+    /// 범위를 확장시킬 경우 초기화 메서드
+    /// </summary>
+    public void Init()
     {
-        RoadMove(userY, userX);
-        SetArrow();
+        SetRoadArray();
     }
 
+    void SetComponent()
+    {
+        buttons = transform.Find("Buttons").gameObject;
+        roadImages = transform.Find("RoadImages").gameObject;
+
+        imageCentor = roadImages.transform.Find("RoadCentor").GetComponent<Image>();
+        imageUp = roadImages.transform.Find("RoadUp").GetComponent<Image>();
+        imageDown = roadImages.transform.Find("RoadDown").GetComponent<Image>();
+        imageLeft = roadImages.transform.Find("RoadLeft").GetComponent<Image>();
+        imageRight = roadImages.transform.Find("RoadRight").GetComponent<Image>();
+
+        upArrow = buttons.transform.Find("Up").GetComponent<Button>();
+        downArrow = buttons.transform.Find("Down").GetComponent<Button>();
+        leftArrow = buttons.transform.Find("Left").GetComponent<Button>();
+        rightArrow = buttons.transform.Find("Right").GetComponent<Button>();
+    }
     void SetButton()
     {
         Button[] arrowButtons = new Button[] { upArrow, downArrow, leftArrow, rightArrow };
@@ -54,8 +71,15 @@ public class RoadViewMenu : MonoBehaviour
         }
     }
 
-    private const string INP = "987654321";
-    void SetRoadImage()
+    /// <summary>
+    /// 지역을 확장시킬경우 클래스로 배열을 관리하고 매개변수로 클래스를 전달.
+    /// ex: public class RoadViewArray
+    ///     {
+    ///         public int[][] RoadView { get; set;}
+    ///     }
+    ///  => void SetRoadImage(RoadViewArray roadview)
+    /// </summary>
+    void SetRoadArray()
     {
         roadList = new string[10][];
         roadList[9] = new string[] { INP, INP,  INP,  INP,  INP,  INP,  INP,  INP };
@@ -73,63 +97,106 @@ public class RoadViewMenu : MonoBehaviour
     void Arrowclick()
     {
         GameObject go = EventSystem.current.currentSelectedGameObject;
+        var index = TupleIndex(go);
+        userY += index.Item1;
+        userX += index.Item2;
+        RoadMove(go);
+        ArrowBSP();
+
+    }
+
+    //void RoadMove(int y, int x)
+    void RoadMove(GameObject go)
+    {
+        (int vertical, int horizontal) = TupleIndex(go);
+        var image = ImagePosition(go);
+
+        image.Item1.transform.position = new Vector2(0, vertical);
+        image.Item2.transform.position = new Vector2(horizontal, 0);
+
+        image.Item1.name = GetName(image.Item1.transform.position);
+        image.Item2.name = GetName(image.Item2.transform.position);
+
+        SetImage();
+    }
+
+    void SetImage()
+    {
+        imageUp.sprite = Manager.Resources.LoadSprite(roadList[userY + 1][userX]);
+        imageDown.sprite = Manager.Resources.LoadSprite(roadList[userY - 1][userX]);
+        imageLeft.sprite = Manager.Resources.LoadSprite(roadList[userY][userX - 1]);
+        imageRight.sprite = Manager.Resources.LoadSprite(roadList[userY][userX + 1]);
+    }
+
+    string GetName(Vector2 vector)
+    {
+        string name = "";
+        switch (vector)
+        {
+            case var v when v == new Vector2(1, 0):
+                name = "RoadUp";
+                break;
+            case var v when v == new Vector2(-1, 0):
+                name = "RoadDown";
+                break;
+            case var v when v == new Vector2(0, 1):
+                name = "RoadRight";
+                break;
+            case var v when v == new Vector2(0, -1):
+                name = "RoadLeft";
+                break;
+            default:
+                break;
+        };
+
+        return name;
+    }
+    void ArrowBSP()
+    {
+        upArrow.gameObject.SetActive(IsArrowInBound(upArrow.gameObject));
+        downArrow.gameObject.SetActive(IsArrowInBound(downArrow.gameObject));
+        leftArrow.gameObject.SetActive(IsArrowInBound(leftArrow.gameObject));
+        rightArrow.gameObject.SetActive(IsArrowInBound(rightArrow.gameObject));
+
+    }
+    bool IsArrowInBound(GameObject arrow)
+    {
+        bool isINP = true;
+        var array = TupleIndex(arrow);
+        
+        if (roadList[array.Item1][array.Item2] == INP)
+        {
+            isINP = false;
+        }
+
+        return isINP;
+    }
+
+    (int, int) TupleIndex(GameObject go)
+    {
         var index = go.name switch
         {
-            "Up"    => (1, 0),
-            "Down"  => (-1, 0),
-            "Left"  => (0, -1),
+            "Up" => (1, 0),
+            "Down" => (-1, 0),
+            "Left" => (0, -1),
             "Right" => (0, 1),
             _ => throw new ArgumentException("Unexpected value: " + go.name)
         };
-        userY += index.Item1;
-        userX += index.Item2;
-        RoadMove(userY, userX);
-        SetArrow();
 
+        return (index.Item1, index.Item2);
     }
 
-    void RoadMove(int y, int x)
+    (GameObject, GameObject) ImagePosition(GameObject go)
     {
+        (GameObject vertical, GameObject horizontal) = go.name switch
+        {
+            "Up" => (imageCentor.gameObject, imageUp.gameObject),
+            "Down" => (imageCentor.gameObject, imageDown.gameObject),
+            "Left" => (imageCentor.gameObject, imageLeft.gameObject),
+            "Right" => (imageCentor.gameObject, imageRight.gameObject),
+            _ => throw new ArgumentException("Unexpected value: " + go.name)
+        };
 
-        image.sprite = Manager.Resources.LoadSprite(roadList[y][x]);
-    }
-
-    void SetArrow()
-    {
-        if (roadList[userY + 1][userX] == INP)
-        {
-            upArrow.gameObject.SetActive(false);
-        }
-        else
-        {
-            upArrow.gameObject.SetActive(true);
-        }
-        if (roadList[userY - 1][userX] == INP)
-        {
-            downArrow.gameObject.SetActive(false);
-        }
-        else
-        {
-            downArrow.gameObject.SetActive(true);
-        }
-        if (roadList[userY][userX + 1] == INP)
-        {
-            rightArrow.gameObject.SetActive(false);
-        }
-        else
-        {
-            rightArrow.gameObject.SetActive(true);
-        }
-
-        if (roadList[userY][userX -1] == INP)
-        {
-            leftArrow.gameObject.SetActive(false);
-        }
-        else
-        {
-            leftArrow.gameObject.SetActive(true);
-        }
-
-
+        return (vertical, horizontal);
     }
 }

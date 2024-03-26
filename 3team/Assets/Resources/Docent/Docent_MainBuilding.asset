@@ -29,23 +29,3 @@ MonoBehaviour:
     m_SpecifySize: 1
     m_Name: MainBuilding
     m_Texture: {fileID: 0}
-  - m_SerializedGuid:
-      m_GuidLow: 5331452378651469731
-      m_GuidHigh: 3133028838128403096
-    m_SerializedTextureGuid:
-      m_GuidLow: 16408002385638577033
-      m_GuidHigh: 1529231748481935610
-    m_Size: {x: 0.3, y: 0.22500001}
-    m_SpecifySize: 1
-    m_Name: MainBuilding
-    m_Texture: {fileID: 0}
-  - m_SerializedGuid:
-      m_GuidLow: 5235354306681969001
-      m_GuidHigh: 7133479757454348212
-    m_SerializedTextureGuid:
-      m_GuidLow: 18069780173973193128
-      m_GuidHigh: 3506412640857616457
-    m_Size: {x: 0.3, y: 0.22500001}
-    m_SpecifySize: 1
-    m_Name: WelfareCenter
-    m_Texture: {fileID: 0}

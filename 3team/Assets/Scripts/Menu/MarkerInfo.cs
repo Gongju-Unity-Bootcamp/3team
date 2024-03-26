@@ -12,7 +12,7 @@ public class MarkerInfo : MonoBehaviour
     private Text infomation;
     [SerializeField] private Text NextText; // 직접 어싸인
 
-    private bool isdoccent;
+    private bool isDoccent;
 
     private void Awake()
     {
@@ -31,10 +31,11 @@ public class MarkerInfo : MonoBehaviour
     {
         mapID = id;
         mapData = Manager.Data.Map[mapID];
-        
+        Manager.ID = id;
+        if(Manager.UI.IsUserPosition()) { isDoccent = true; }
+
         SetData();
-        
-        GoDocentQuestion();
+        GoDocentText();
 
     }
 
@@ -47,15 +48,14 @@ public class MarkerInfo : MonoBehaviour
         Manager.UI.markerPosition = new Vector2(mapData.Longitude, mapData.Latitude);
     }
 
-    void GoDocentQuestion()
+    void GoDocentText()
     {
-        if(Manager.UI.IsUserPosition())
+        if(isDoccent)
         {
             NextText.text = "도슨트 시작";
         }
         else 
         {
-            //NextText.text = "도슨트 시작";
             NextText.text = "길안내";
         }
     }

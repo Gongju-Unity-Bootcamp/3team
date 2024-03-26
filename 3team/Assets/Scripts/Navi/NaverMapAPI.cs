@@ -60,7 +60,10 @@ public class NaverMapAPI : MonoBehaviour
 
         mapRawImage = GetComponent<RawImage>();
 
-       
+    }
+
+    void OnEnable()
+    {
         StartCoroutine(RequestLocationPermission());
         StartCoroutine(MapLoader());
         StartCoroutine(UpdateUserLocation());
@@ -72,7 +75,7 @@ public class NaverMapAPI : MonoBehaviour
         if (!Input.location.isEnabledByUser)
         {
             // 위치 서비스가 꺼져 있거나 권한이 없는 경우 권한을 요청
-            Debug.Log("Requesting location permission...");
+            //Debug.Log("Requesting location permission...");
 
             Permission.RequestUserPermission(Permission.FineLocation);
 
@@ -89,13 +92,13 @@ public class NaverMapAPI : MonoBehaviour
             }
             else
             {
-                Debug.Log("Location permission denied by the user.");
+                //Debug.Log("Location permission denied by the user.");
             }
         }
         else
         {
             // 이미 위치 서비스 권한이 있는 경우
-            Debug.Log("Location services are already enabled. Permission granted.");
+            //Debug.Log("Location services are already enabled. Permission granted.");
         }
     }
 
@@ -107,7 +110,7 @@ public class NaverMapAPI : MonoBehaviour
         {
             if (!Input.location.isEnabledByUser)
             {
-                Debug.Log("사용자가 위치 서비스를 활성화하지 않았습니다.");
+                //Debug.Log("사용자가 위치 서비스를 활성화하지 않았습니다.");
                 yield return null;
             }
 
@@ -122,7 +125,7 @@ public class NaverMapAPI : MonoBehaviour
 
             if (maxWait <= 0)
             {
-                Debug.Log("위치 서비스 초기화 대기 시간이 초과되었습니다.");
+                //Debug.Log("위치 서비스 초기화 대기 시간이 초과되었습니다.");
                 yield break;
             }
 
@@ -148,7 +151,7 @@ public class NaverMapAPI : MonoBehaviour
 
         if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
         {
-            Debug.Log(request.error);
+            //Debug.Log(request.error);
         }
         else
         {

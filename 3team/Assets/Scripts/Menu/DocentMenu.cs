@@ -68,7 +68,7 @@ public class DocentMenu : UI
         for(int id = 1; id < 8 + 1; ++id)
         {
             MapData data = Manager.Data.Map[(MapID)id];
-            GameObject go = Manager.Resources.Instantiate("DocentButton", content);
+            GameObject go = Manager.Resources.Instantiate("Docents", content);
             go.name = data.Name;
             DocentButton docentButton = go.GetComponent<DocentButton>();
             docentButton.Init((MapID)id);
@@ -95,8 +95,7 @@ public class DocentMenu : UI
                 base.ForwardPage(Manager.UI.FindView);
                 break;
             case "DocentButton":
-                //도슨트 기능, 매개변수를 스트링으로 전달.
-                // 메소드(doName);
+                Manager.ARInit();
                 break;
         }
 

@@ -24,7 +24,7 @@ public class UIManager : MonoBehaviour
     protected const int THIS_MAIN_MANU = 1;
     
     protected bool isBackButton;
-    private bool isSceneChange;
+    public bool isSceneChange;
 
     public Stack<GameObject> BStack;
 
@@ -33,6 +33,7 @@ public class UIManager : MonoBehaviour
     public void Init()
     {
         Manager.Resources.Instantiate("UIController");
+        Manager.Resources.Instantiate("ARCamera");
         UIController = GameObject.Find("UIController");
         MainMenu = UIController.transform.Find("MainMenu").gameObject;
         FindView = UIController.transform.Find("FindView").gameObject;
@@ -55,8 +56,7 @@ public class UIManager : MonoBehaviour
         //ARScene에서 뒤로가기 눌렀을때
         if (isSceneChange)
         {
-            SceneManager.LoadScene("MainScene");
-            isSceneChange = false;
+            Manager.MainInit();
             return;
         }
 

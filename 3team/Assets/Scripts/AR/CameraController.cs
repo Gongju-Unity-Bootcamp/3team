@@ -7,11 +7,12 @@ using System;
 using System.Collections;
 using System.IO;
 
-public class CameraController : MonoBehaviour
+public class CameraController : UI
 {
     [SerializeField] private RectTransform content;
     [SerializeField] private Button camerago;
     [SerializeField] private Button videogo;
+    [SerializeField] private Button backButton;
 
     GameObject buttons;
 
@@ -31,6 +32,7 @@ public class CameraController : MonoBehaviour
     {
         buttons = transform.Find("Viewport").gameObject;
         centorPosition = content.transform.position;
+        backButton.GetComponent<Button>();
         camerago.GetComponent<Button>();
         videogo.GetComponent<Button>();
         Init();
@@ -49,8 +51,14 @@ public class CameraController : MonoBehaviour
 
         Observable.Merge(camerago.OnClickAsObservable(),
             videogo.OnClickAsObservable()).Subscribe(_ => TakeTouch());
+
+        backButton.OnClickAsObservable().Subscribe(_ => ClickCheck());
     }
 
+    protected override void ClickCheck()
+    {
+        Manager.MainInit();
+    }
     private void TakeTouch()
     {
         GameObject go = EventSystem.current.currentSelectedGameObject;
