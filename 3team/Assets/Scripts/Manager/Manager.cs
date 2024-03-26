@@ -1,11 +1,10 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Manager : MonoBehaviour
 {
     public static Manager Instance;
-
     public static SoundManager Sound { get; private set; }
-
     public static ResourcesManager Resources { get; private set; }
 
     public static DataManager Data { get; private set; }
@@ -13,7 +12,9 @@ public class Manager : MonoBehaviour
     public static UIManager UI { get; private set; }
 
     public static VidioManager Vidio { get; private set; }
+    public static ARManager AR { get; private set; }
 
+    public static MapID ID;
 
     private void Awake()
     {
@@ -65,12 +66,30 @@ public class Manager : MonoBehaviour
         go.transform.parent = transform;
         Vidio = go.AddComponent<VidioManager>();
 
+        go = new GameObject(nameof(ARManager));
+        go.transform.parent = transform;
+        AR = go.AddComponent<ARManager>();
 
         Data.Init();
         Resources.Init();
         Sound.Init();
         UI.Init();
         Vidio.Init();
+
+    }
+
+    public static void ARInit()
+    {
+        SceneManager.LoadScene("AR");
+        UI.isSceneChange = true;
+        AR.Init(ID);
+    }
+
+    public static void MainInit()
+    {
+        SceneManager.LoadScene("Main");
+        UI.isSceneChange = false;
+        Manager.UI.Init();
     }
 
 }

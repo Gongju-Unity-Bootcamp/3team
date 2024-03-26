@@ -34,3 +34,15 @@ public class MapData
     public float DoorLati { get; set; }
     public float DoorLong { get; set; }
 }
+
+public enum MapType
+{
+    none,
+    Park = 1,
+    Parking =2,
+    Guide = 3,
+    Hospital = 4,
+    Camera = 5,
+    Subway = 6, 
+    Restroom = 7
+}

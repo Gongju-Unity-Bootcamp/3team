@@ -6,7 +6,6 @@ using UniRx;
 using UnityEngine.Android;
 using System.Collections;
 using VoxelBusters.ReplayKit.Internal;
-//using static NativeGallery;
 
 public class VideoController : MonoBehaviour, INativeCallbackListener
 {
@@ -133,9 +132,8 @@ public class VideoController : MonoBehaviour, INativeCallbackListener
 
     void LateUpdate()
     {
-        // 게임 카메라의 렌더링을 AR 카메라에 합성
-        RenderTexture.active = arCamera.targetTexture;
-        objectCamera.Render();
+        RenderTexture.active = objectCamera.targetTexture;
+        arCamera.Render();
         RenderTexture.active = null;
     }
 
