@@ -59,16 +59,10 @@ public class NaverMapAPI : MonoBehaviour
         mapHeight = mapRectTransform.sizeDelta.y.ToString();
 
         mapRawImage = GetComponent<RawImage>();
-
-    }
-
-    void OnEnable()
-    {
         StartCoroutine(RequestLocationPermission());
         StartCoroutine(MapLoader());
         StartCoroutine(UpdateUserLocation());
-    }
-    
+    }    
     //사용자 위치 정보 권한 획득
     private IEnumerator RequestLocationPermission()
     {
@@ -151,7 +145,7 @@ public class NaverMapAPI : MonoBehaviour
 
         if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
         {
-            //Debug.Log(request.error);
+            Debug.Log(request.error);
         }
         else
         {
