@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
 using UnityEngine.EventSystems;
-using System.Linq;
 
 public class DocentMenu : UI
 {
@@ -95,10 +94,26 @@ public class DocentMenu : UI
                 base.ForwardPage(Manager.UI.FindView);
                 break;
             case "DocentButton":
-                Manager.ARInit();
-                break;
+                if (Manager.UI.IsUserPosition())
+                {
+                    TakeDocent();
+                }
+                else { Debug.Log("거리가 멀어 도슨트를 실행할 수 없습니다."); }
+                    break;
         }
 
+    }
+
+    private void TakeDocent()
+    {
+        base.BackPage();
+     
+        if (Manager.UI.BStack.Count != 0)
+        {
+            TakeDocent();
+        }
+        
+        base.ForwardPage(Manager.UI.ARMenu);
     }
 
     private void OnDisable()

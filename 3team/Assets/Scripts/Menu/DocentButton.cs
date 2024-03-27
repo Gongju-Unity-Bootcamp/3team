@@ -34,6 +34,7 @@ public class DocentButton : UI
     {
         GameObject go = Manager.UI.DocentMenu;
         DocentMenu menu = go.GetComponent<DocentMenu>();
+        Manager.UI.mapID = mapID;
         go = Manager.UI.DocentMenu.transform.Find("Info").gameObject;
         menu.SetInfo(mapID);
 

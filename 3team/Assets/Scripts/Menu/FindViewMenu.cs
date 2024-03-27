@@ -83,7 +83,10 @@ public class FindViewMenu : UI
         base.BackPage();
         if (Manager.UI.IsUserPosition())
         {
-            base.ForwardPage(Manager.UI.DocentFeature);
+            if(Manager.UI.BStack.Count != 0)
+            {
+                base.ForwardPage(Manager.UI.ARMenu);
+            }
         }
         else
         {

@@ -12,7 +12,6 @@ public class CameraController : UI
     [SerializeField] private RectTransform content;
     [SerializeField] private Button camerago;
     [SerializeField] private Button videogo;
-    [SerializeField] private Button backButton;
 
     GameObject buttons;
 
@@ -32,7 +31,6 @@ public class CameraController : UI
     {
         buttons = transform.Find("Viewport").gameObject;
         centorPosition = content.transform.position;
-        backButton.GetComponent<Button>();
         camerago.GetComponent<Button>();
         videogo.GetComponent<Button>();
         Init();
@@ -40,25 +38,23 @@ public class CameraController : UI
 
     private void Init()
     {
+        //드래그 시작
         Observable.Merge(camerago.OnBeginDragAsObservable(),
             videogo.OnBeginDragAsObservable()).Subscribe(_ => MovingCheck());
 
+        //드래그 중
         Observable.Merge(camerago.OnDragAsObservable(),
             videogo.OnDragAsObservable()).Subscribe(_ => ButtonMove());
         
+        //드래그 종료
         Observable.Merge(camerago.OnEndDragAsObservable(),
             videogo.OnEndDragAsObservable()).Subscribe(_ => SetButtonPosition());
 
+        //클릭
         Observable.Merge(camerago.OnClickAsObservable(),
             videogo.OnClickAsObservable()).Subscribe(_ => TakeTouch());
-
-        backButton.OnClickAsObservable().Subscribe(_ => ClickCheck());
     }
 
-    protected override void ClickCheck()
-    {
-        Manager.MainInit();
-    }
     private void TakeTouch()
     {
         GameObject go = EventSystem.current.currentSelectedGameObject;
@@ -142,6 +138,7 @@ public class CameraController : UI
     private IEnumerator TakeScreenshotCoroutine()
     {
         buttons.SetActive(false);
+        Manager.UI.backButton.gameObject.SetActive(false);
         yield return new WaitForEndOfFrame();
 
         // 스크린샷 찍기
@@ -165,5 +162,7 @@ public class CameraController : UI
             }
         });
         buttons.SetActive(true);
+        Manager.UI.backButton.gameObject.SetActive(true);
     }
+
 }
