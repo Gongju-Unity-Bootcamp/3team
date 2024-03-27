@@ -14,29 +14,19 @@ public class CouponActive : MonoBehaviour
     }
     private void Update()
     {
-        if(couponActive! && Manager.UI.distance < Manager.UI.criteria)
+        if(couponActive == false && Manager.UI.distance < Manager.UI.criteria)
         {
-            couponActive = true;
-            UpdateCouponActive();
+            Debug.Log("쿠폰 활성화");
+            couponActive = !couponActive;
+            coupon.SetActive(couponActive);
         }
         else if(couponActive && Manager.UI.distance > Manager.UI.criteria)
         {
-            couponActive = false;
-            UpdateCouponActive();
+            Debug.Log("쿠폰 비활성화");
+            couponActive = !couponActive;
+            coupon.SetActive(couponActive);
         }
     }
-    private void UpdateCouponActive()
-    {
-        if(couponActive)
-        {
-            coupon.SetActive(true);
-        }
-        else
-        {
-            coupon.SetActive(false);
-        }
-    }
-
     IEnumerator CalculateDistanceCoroutine()
     {
         while(true)

@@ -10,6 +10,10 @@ public abstract class UI : MonoBehaviour
         GameObject go = Manager.UI.BStack.Pop();
         go.SetActive(false);
         Manager.UI.BackButtonCheak();
+        if(!Manager.UI.ARCamera.transform.Find("XR Origin (XR Rig)").gameObject.activeSelf)
+        {
+            Manager.UI.ARCamera.transform.Find("XR Origin (XR Rig)").gameObject.SetActive(true);
+        }
         
     }
 
