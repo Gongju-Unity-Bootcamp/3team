@@ -31,12 +31,11 @@ public class MarkerInfo : MonoBehaviour
     {
         mapID = id;
         mapData = Manager.Data.Map[mapID];
-        Manager.ID = id;
         if(Manager.UI.IsUserPosition()) { isDoccent = true; }
 
         SetData();
         GoDocentText();
-
+        Manager.UI.mapID = mapID;
     }
 
     void SetData()
