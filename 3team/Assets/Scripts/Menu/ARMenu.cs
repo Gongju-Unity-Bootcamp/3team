@@ -40,12 +40,11 @@ public class ARMenu : UI
         //plane = ARComponent.transform.Find("XR Origin (XR Rig)").GetComponent<ARPlaneManager>();
         #endregion
     }
-
     private void Init()
     {
         if(Manager.UI.ARCamera.gameObject.activeSelf)
         {
-            Manager.UI.ARCamera.gameObject.SetActive(false);
+            Manager.UI.ARCamera.gameObject.transform.Find("XR Origin (XR Rig)").gameObject.SetActive(false);
         }
 
         mapData = Manager.Data.Map[Manager.UI.mapID];
