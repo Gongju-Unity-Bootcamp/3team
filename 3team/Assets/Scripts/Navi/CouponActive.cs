@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CouponActive : MonoBehaviour
@@ -9,6 +10,7 @@ public class CouponActive : MonoBehaviour
     private void Start()
     {
         couponActive = true;
+        StartCoroutine(CalculateDistanceCoroutine());
     }
     private void Update()
     {
@@ -32,6 +34,16 @@ public class CouponActive : MonoBehaviour
         else
         {
             coupon.SetActive(false);
+        }
+    }
+
+    IEnumerator CalculateDistanceCoroutine()
+    {
+        while(true)
+        {
+            float distance = Manager.UI.CalculateDistance();
+            Manager.UI.distance = distance;
+            yield return new WaitForSeconds(1.5f);
         }
     }
 }

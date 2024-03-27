@@ -5,6 +5,8 @@ using UniRx;
 using UnityEngine.UI;
 using System;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class UIManager : MonoBehaviour
 {
@@ -97,12 +99,18 @@ public class UIManager : MonoBehaviour
     public float criteria { get; set; }
     public bool IsUserPosition()
     {
-        float disX = markerPosition.x - _naverMapApi.userLongitude;
-        float disY = markerPosition.y - _naverMapApi.userLatitude;
-        distance = Mathf.Sqrt(disX * disX + disY * disY);
+        distance = CalculateDistance();
         criteria = 0.000349f;
         bool isWithinRange = distance < criteria;
+        Debug.Log(isWithinRange);
         return isWithinRange;
     }
 
+    public float CalculateDistance()
+    {
+        float disX = markerPosition.x - _naverMapApi.userLongitude;
+        float disY = markerPosition.y - _naverMapApi.userLatitude;
+        float distance = Mathf.Sqrt(disX * disX + disY * disY);
+        return distance;
+    }
 }

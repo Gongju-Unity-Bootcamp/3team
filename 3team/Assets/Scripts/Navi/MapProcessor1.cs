@@ -84,7 +84,6 @@ public class MapProcessor1 : MonoBehaviour
         while (true)
         {
             ProcessImage(Manager.UI.userPosition, buttonsPos);
-            Debug.Log("맵그리기");
             yield return new WaitForSeconds(3f);
         }
     }
@@ -121,7 +120,6 @@ public class MapProcessor1 : MonoBehaviour
                 // 버튼 위치에 도달하면 루프를 종료합니다.
                 if (currentPos == buttonPos)
                 {
-                    Debug.Log("버튼에 도달함");
                     break;
                 }
 
