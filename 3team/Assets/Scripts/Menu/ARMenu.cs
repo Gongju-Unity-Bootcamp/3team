@@ -18,14 +18,16 @@ public class ARMenu : UI
 
     MapData mapData;
     GameObject ARComponent;
-    ARCameraManager arCamera;
+    GameObject doGameObject;
     Button backButton;
+    ARCameraManager arCamera;
+    bool isCameraPosition;
     [SerializeField] private Button cameraSwipeButton;
 
     private void Awake()
     {
         backButton = Manager.UI.backButton.GetComponent<Button>();
-        //cameraSwipeButton.GetComponent<Button>();
+        cameraSwipeButton.GetComponent<Button>();
     }
 
     private void OnEnable()
@@ -46,17 +48,19 @@ public class ARMenu : UI
         {
             Manager.UI.ARCamera.gameObject.transform.Find("XR Origin (XR Rig)").gameObject.SetActive(false);
         }
-
         mapData = Manager.Data.Map[Manager.UI.mapID];
         string doName = string.Concat(Define.Docent.DOCENT, mapData.Name);
         ARComponent = Manager.Resources.Instantiate(doName, transform);
-        //arCamera = ARComponent.transform.Find("AR Camera").GetComponent<ARCameraManager>();
+        doGameObject = Manager.UI.ARMenu.transform.Find(doName).gameObject;
+        arCamera = doGameObject.transform.Find("AR Camera").GetComponent<ARCameraManager>();
+
+
     }
 
     void SetButton()
     {
         backButton.OnPointerClickAsObservable().Subscribe(_ => ReturnMain());
-        //cameraSwipeButton.OnPointerClickAsObservable().Subscribe(_ => SwipeCamera());
+        cameraSwipeButton.OnPointerClickAsObservable().Subscribe(_ => SwipeCamera());
 
     }
     #region 맵 타입에 따라 생성할 타입을 정해줌 (현재는 안씀)
@@ -86,7 +90,17 @@ public class ARMenu : UI
 
     void SwipeCamera()
     {
-        //arCamera
+        isCameraPosition = !isCameraPosition;
+
+        if (isCameraPosition)
+        {
+            arCamera.requestedFacingDirection = CameraFacingDirection.User;
+        }
+        else
+        {
+            arCamera.requestedFacingDirection = CameraFacingDirection.World;
+        }
+
     }
 
     private void OnDisable()
