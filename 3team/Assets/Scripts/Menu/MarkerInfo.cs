@@ -32,6 +32,7 @@ public class MarkerInfo : MonoBehaviour
         mapID = id;
         mapData = Manager.Data.Map[mapID];
         if(Manager.UI.IsUserPosition()) { isDoccent = true; }
+        else { isDoccent = false; }
 
         SetData();
         GoDocentText();

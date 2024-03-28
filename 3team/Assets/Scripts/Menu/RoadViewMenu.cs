@@ -7,6 +7,7 @@ using UniRx.Triggers;
 
 public class RoadViewMenu : MonoBehaviour
 {
+    public GameObject roadView;
     private GameObject buttons;
 
     private Image image;
@@ -23,8 +24,8 @@ public class RoadViewMenu : MonoBehaviour
     private readonly int horizontalCount;
 
     //입구에서 시작한다는 가정으로 설정함.
-    public int userY { get; set; } = 1;
-    public int userX { get; set; } = 6;
+    public int userY;
+    public int userX;
 
     void Awake()
     {
@@ -32,21 +33,17 @@ public class RoadViewMenu : MonoBehaviour
         Init();
         SetButton();
         SetRoadArray();
-        SetImage();
         ArrowBSP();
         
     }
 
-    private void Start()
-    {
-        transform.Find("RoadImage").gameObject.SetActive(false);
-    }
     /// <summary>
     /// 범위를 확장시킬 경우 초기화 메서드
     /// </summary>
     public void Init()
     {
-        buttons = transform.Find("Buttons").gameObject;
+        roadView = transform.Find("RoadImage").gameObject;
+        buttons = roadView.transform.Find("Buttons").gameObject;
         upArrow = buttons.transform.Find("Up").GetComponent<Button>();   
         downArrow = buttons.transform.Find("Down").GetComponent<Button>();   
         leftArrow = buttons.transform.Find("Left").GetComponent<Button>();   
@@ -101,10 +98,7 @@ public class RoadViewMenu : MonoBehaviour
 
     public void SetImage()
     {
-        Debug.Log(roadList[userX][userY]);
         image.sprite = Manager.Resources.LoadSprite(roadList[userY][userX]);
-        Debug.Log(userX);
-        Debug.Log(userY);
     }
     public void SetImageToRoadViewMap(int x,int y)
     {
