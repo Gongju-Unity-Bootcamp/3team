@@ -460,6 +460,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Docent_WelfareCenter(Object)
       objectReference: {fileID: 0}
+    - target: {fileID: 4389918291240421649, guid: d1ba67232b74a02408f7024515b0a7d2,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 5761417246800930008}
     - target: {fileID: 7123019502874382187, guid: d1ba67232b74a02408f7024515b0a7d2,
         type: 3}
       propertyPath: m_AnchorMax.y
