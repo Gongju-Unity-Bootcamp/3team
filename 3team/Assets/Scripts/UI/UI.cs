@@ -6,14 +6,14 @@ public abstract class UI : MonoBehaviour
 {
     protected void BackPage()
     {
+        if (!Manager.UI.ARCamera.transform.Find("XR Origin (XR Rig)").gameObject.activeSelf)
+        {
+            Manager.UI.ARCamera.transform.Find("XR Origin (XR Rig)").gameObject.SetActive(true);
+        }
         //if (Manager.UI.BStack.Count == 1) { return; }
         GameObject go = Manager.UI.BStack.Pop();
         go.SetActive(false);
         Manager.UI.BackButtonCheak();
-        if(!Manager.UI.ARCamera.transform.Find("XR Origin (XR Rig)").gameObject.activeSelf)
-        {
-            Manager.UI.ARCamera.transform.Find("XR Origin (XR Rig)").gameObject.SetActive(true);
-        }
         
     }
 

@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI; // 버튼을 사용하기 위해 추가해야 할 using 문
 
-public class RoadViewMap : MonoBehaviour
+public class RoadViewMap : UI
 {
     private List<Button> buttons = new List<Button>(); // 버튼을 저장할 리스트
     private RoadViewMenu _RoadViewmenu;
@@ -49,8 +49,8 @@ public class RoadViewMap : MonoBehaviour
     // 버튼 클릭 시 실행될 메서드
     void ButtonClickHandler(int index)
     {
-        Debug.Log("버튼 " + index + "이(가) 클릭되었습니다.");    
-        switch(index)
+        #region 버튼들
+        switch (index)
         {
             case 0:
                 _RoadViewmenu.SetImageToRoadViewMap(6, 1);
@@ -126,5 +126,8 @@ public class RoadViewMap : MonoBehaviour
                 break;
 
         }
+        #endregion
+        base.ForwardPage(_RoadViewmenu.roadView);
+        
     }
 }
