@@ -23,8 +23,8 @@ public class RoadViewMenu : MonoBehaviour
     private readonly int horizontalCount;
 
     //입구에서 시작한다는 가정으로 설정함.
-    int userY = 1;
-    int userX = 6;
+    public int userY { get; set; } = 1;
+    public int userX { get; set; } = 6;
 
     void Awake()
     {
@@ -37,6 +37,10 @@ public class RoadViewMenu : MonoBehaviour
         
     }
 
+    private void Start()
+    {
+        transform.Find("RoadImage").gameObject.SetActive(false);
+    }
     /// <summary>
     /// 범위를 확장시킬 경우 초기화 메서드
     /// </summary>
@@ -50,7 +54,7 @@ public class RoadViewMenu : MonoBehaviour
         image = transform.Find("RoadImage").GetComponent<Image>();
     }
 
-    void SetButton()
+    public void SetButton()
     {
         Button[] arrowButtons = new Button[4] { upArrow, downArrow, leftArrow, rightArrow };
 
@@ -83,7 +87,7 @@ public class RoadViewMenu : MonoBehaviour
         roadList[0] = new string[] { INP, INP,  INP,  INP,  INP,  INP,  INP,  INP };
     }
 
-    void Arrowclick(PointerEventData eventData)
+    public void Arrowclick(PointerEventData eventData)
     {
         GameObject go = EventSystem.current.currentSelectedGameObject;
         var index = TupleIndex(go);
@@ -95,12 +99,20 @@ public class RoadViewMenu : MonoBehaviour
     }
 
 
-    void SetImage()
+    public void SetImage()
     {
+        Debug.Log(roadList[userX][userY]);
         image.sprite = Manager.Resources.LoadSprite(roadList[userY][userX]);
+        Debug.Log(userX);
+        Debug.Log(userY);
     }
-
-    void ArrowBSP()
+    public void SetImageToRoadViewMap(int x,int y)
+    {
+        userX = x;
+        userY = y;
+        SetImage();
+    }
+    public void ArrowBSP()
     {
         upArrow.gameObject.SetActive(IsArrowInBound(upArrow.gameObject));
         downArrow.gameObject.SetActive(IsArrowInBound(downArrow.gameObject));
@@ -108,7 +120,7 @@ public class RoadViewMenu : MonoBehaviour
         rightArrow.gameObject.SetActive(IsArrowInBound(rightArrow.gameObject));
 
     }
-    bool IsArrowInBound(GameObject arrow)
+    public bool IsArrowInBound(GameObject arrow)
     {
         bool isINP = true;
         var array = TupleIndex(arrow);
