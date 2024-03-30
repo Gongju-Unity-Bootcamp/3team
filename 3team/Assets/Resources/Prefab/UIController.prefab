@@ -2894,8 +2894,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 136.4516, y: -7.8397}
-  m_SizeDelta: {x: 63.9996, y: 115.6693}
+  m_AnchoredPosition: {x: 270.74603, y: -7.8397}
+  m_SizeDelta: {x: 110.5075, y: 115.6693}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &374345397468276141
 CanvasRenderer:
@@ -3390,8 +3390,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -44.1, y: -2.9}
-  m_SizeDelta: {x: 154.6583, y: 105.79}
+  m_AnchoredPosition: {x: -68.69879, y: -4}
+  m_SizeDelta: {x: 766.5286, y: 259.7537}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8758375313487480699
 CanvasRenderer:
@@ -3434,7 +3434,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uD6C4\uC0DD\uAD00"
+  m_Text: MainBuilding
 --- !u!1 &2305393791922215437
 GameObject:
   m_ObjectHideFlags: 0
@@ -8522,8 +8522,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 345, y: 749}
-  m_SizeDelta: {x: 362.0733, y: 172.4158}
+  m_AnchoredPosition: {x: 150.7821, y: 749}
+  m_SizeDelta: {x: 750.509, y: 172.4158}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1753111591537993577
 CanvasRenderer:
@@ -11804,6 +11804,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -150
       objectReference: {fileID: 0}
+    - target: {fileID: 3019712374973892193, guid: aa26306354bf5d2428c707ac681648e6,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8c87b1bec8e40bf40bf1ab0a0dad77d4,
+        type: 3}
+    - target: {fileID: 3672857450096823620, guid: aa26306354bf5d2428c707ac681648e6,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 93e5a0dd54cb2f74283a9ed0f9922d49,
+        type: 3}
     - target: {fileID: 4368525314366563677, guid: aa26306354bf5d2428c707ac681648e6,
         type: 3}
       propertyPath: m_SortingLayer
